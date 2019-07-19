@@ -6,7 +6,7 @@
       v-toolbar-side-icon.white--text
       v-toolbar-title.font-weight-bold #カウンター
       v-spacer
-      v-toolbar-items.hidden-sm-and-down
+      v-toolbar-items
         v-btn(flat).white--text.font-weight-bold ログイン
         v-btn.font-weight-bold 新規登録
 
