@@ -12,8 +12,14 @@
 
     v-footer.white--text(color="pink darken-2")
       app
-
-      span #カウンター
+      v-flex.font-weight-bold(
+        color="pink darken-2"
+        lighten-2
+        py-3
+        text-xs-center
+        white--text
+        xs12
+        )  &copy;2019 — #カウンター
 </template>
 
 <script>
