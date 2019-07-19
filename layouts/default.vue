@@ -4,7 +4,11 @@
     v-toolbar.white--text(color="pink darken-2")
       app
       v-toolbar-side-icon.white--text
-      v-toolbar-title #カウンター
+      v-toolbar-title.font-weight-bold #カウンター
+      v-spacer
+      v-toolbar-items.hidden-sm-and-down
+        v-btn(flat).white--text.font-weight-bold ログイン
+        v-btn.font-weight-bold 新規登録
 
     v-content
       v-container
@@ -17,6 +21,7 @@
 </template>
 
 <script>
+
 export default {
   data() {
     return {
