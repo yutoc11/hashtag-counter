@@ -37,6 +37,7 @@ export default {
     'nuxt-buefy',
     '@nuxtjs/vuetify',
   ],
+
   /*
   ** Build configuration
   */
@@ -46,5 +47,20 @@ export default {
     */
     extend(config, ctx) {
     }
+  }
+}
+
+module.exports = {
+ modules: [
+    'nuxt-fontawesome' //ここに追記
+  ],
+  
+ fontawesome: {
+    imports: [
+      {
+        set: '@fortawesome/free-solid-svg-icons',
+        icons: ['fas']
+      }
+    ]
   }
 }
