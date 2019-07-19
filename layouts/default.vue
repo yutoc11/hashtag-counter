@@ -1,14 +1,14 @@
 <template lang="pug">
   v-app
+
     v-toolbar.white--text(color="pink darken-2")
       app
-
       v-toolbar-side-icon.white--text
       v-toolbar-title #カウンター
 
     v-content
       v-container
-      nuxt/
+        nuxt/
 
     v-footer.white--text(color="pink darken-2")
       app
