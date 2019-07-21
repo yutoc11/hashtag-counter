@@ -1,17 +1,11 @@
 <template lang="pug">
   section.section
 
-    hashtag-input
-
-    v-divider
-
     v-container
       h2.headline.text-xs-center.font-weight-thin
-        | My hashtag set
-    v-layout(justify-center)
-      v-flex(xs12 md8)
-        v-expansion-panel
-            my-hashtag
+        | メールアドレスでログイン
+
+    v-divider
 </template>
 
 <script>
