@@ -15,7 +15,7 @@
 
         v-layout(align-center justify-space-between row fill-height)
           v-btn(round) クリア
-              v-icon clear
+            v-icon clear
           v-btn(round)
             v-icon add_circle_outline
           v-btn(round)

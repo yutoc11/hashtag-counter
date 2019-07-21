@@ -23,6 +23,7 @@ export default {
   ** Global CSS
   */
   css: [
+
   ],
   /*
   ** Plugins to load before mounting the App
@@ -36,7 +37,17 @@ export default {
     // Doc: https://buefy.github.io/#/documentation
     'nuxt-buefy',
     '@nuxtjs/vuetify',
+    'nuxt-fontawesome'
   ],
+
+  fontawesome: {
+     imports: [
+      {
+        set: '@fortawesome/free-solid-svg-icons',
+        icons: ['fas']
+      },
+     ]
+   },
 
   /*
   ** Build configuration
@@ -47,20 +58,5 @@ export default {
     */
     extend(config, ctx) {
     }
-  }
-}
-
-module.exports = {
- modules: [
-    'nuxt-fontawesome' //ここに追記
-  ],
-  
- fontawesome: {
-    imports: [
-      {
-        set: '@fortawesome/free-solid-svg-icons',
-        icons: ['fas']
-      }
-    ]
   }
 }
