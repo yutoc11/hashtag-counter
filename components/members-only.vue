@@ -20,7 +20,7 @@ export default {
     setTimeout(() => {
       if (!this.isAuthenticated) {
         // ログインしていなかったら飛ぶページを設定
-        this.$router.push('/login/login_test')
+        this.$router.push('/')
       }
       this.loaded = true
     }, 0)
