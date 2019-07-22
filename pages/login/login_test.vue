@@ -42,7 +42,7 @@ export default {
       firebase.auth().signInWithEmailAndPassword(this.email, this.password)
       .then(user => {
         // ログインしたら飛ぶページを指定
-        // this.$router.push("/member-page")
+        this.$router.push("/member-page")
       }).catch((error) => {
         alert(error)
       });
