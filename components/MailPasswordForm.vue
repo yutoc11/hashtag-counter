@@ -6,10 +6,10 @@
             v-card-title(primary-title)
               h4 メールアドレスで{{ login_or_signup }}
             v-form
-              v-text-field(prepend-icon="person" name="Username" label="メールアドレス")
-              v-text-field(prepend-icon="lock" name="Password" label="パスワード" type="password")
+              v-text-field(prepend-icon="person" name="email" label="メールアドレス" type="text" v-model="email")
+              v-text-field(prepend-icon="lock" name="password" label="パスワード" type="password" v-model="password")
               v-card-actions
-                v-btn(primary block round) {{ login_or_signup }}
+                v-btn(primary block round @click="emailLogin") {{ login_or_signup }}
 </template>
 
 <script>
