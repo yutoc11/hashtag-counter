@@ -12,6 +12,8 @@
           v-textarea(
             placeholder="Instagramに載せたいハッシュタグの羅列をご入力ください。"
             v-model="message"
+            maxlength="500"
+            auto-grow
             solo
             )
           v-container
