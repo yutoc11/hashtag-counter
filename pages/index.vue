@@ -1,7 +1,13 @@
 <template lang="pug">
   section.section
-
     //コンポーネントでうまくできないので一旦こちらに
+    v-layout(v-if="flash_message")
+      v-alert.px-2.py-2.my-3(
+        outline
+        dismissible
+        :value="true"
+        type="success"
+        ) {{ flash_message }}
     v-layout(justify-center)
       v-flex(xs12 md8)
         v-form
@@ -10,7 +16,7 @@
             solo
             )
           v-textarea(
-            placeholder="Instagramに載せたいハッシュタグの羅列をご入力ください。"
+            placeholder="Instagramに載せたいハッシュタグまとめをご入力ください。"
             v-model="message"
             maxlength="500"
             auto-grow
@@ -24,7 +30,10 @@
               v-icon clear
             v-btn(round)
               v-icon add_circle_outline
-            v-btn(round)
+            v-btn.copy-button(
+              round
+              @click="onCopy(message)"
+              )
               v-icon file_copy
 
     v-divider
@@ -47,9 +56,9 @@ export default {
   name: 'HomePage',
 
   data () {
-
     return {
       message:'',
+      flash_message: '',
     };
   },
 
@@ -67,7 +76,13 @@ export default {
       }else{
         return 0;
       }
+    }
+  },
 
+  methods: {
+    onCopy(msg) {
+      this.$copyText(msg)
+      return this.flash_message = "コピーしました"
     }
   }
 }
@@ -77,4 +92,9 @@ export default {
 .section{
   margin: 0 auto;
 }
+
+.v-alert{
+  border-radius: 15px;
+}
+
 </style>

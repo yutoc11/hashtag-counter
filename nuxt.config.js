@@ -38,7 +38,8 @@ export default {
     // Doc: https://buefy.github.io/#/documentation
     'nuxt-buefy',
     '@nuxtjs/vuetify',
-    'nuxt-fontawesome'
+    'nuxt-fontawesome',
+    'nuxt-clipboard2'
   ],
 
   fontawesome: {
