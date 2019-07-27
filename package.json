@@ -20,6 +20,7 @@
     "nuxt": "^2.0.0",
     "nuxt-buefy": "^0.3.2",
     "nuxt-fontawesome": "^0.4.0",
+    "vue-flash-message": "^0.7.2",
     "vuex-persistedstate": "^2.5.4"
   },
   "devDependencies": {
