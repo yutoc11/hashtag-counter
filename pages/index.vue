@@ -24,7 +24,10 @@
               v-icon clear
             v-btn(round)
               v-icon add_circle_outline
-            v-btn(round)
+            v-btn.copy-button(
+              round
+              @click="onCopy(message)"
+              )
               v-icon file_copy
 
     v-divider
@@ -67,7 +70,12 @@ export default {
       }else{
         return 0;
       }
+    }
+  },
 
+  methods: {
+    onCopy(msg) {
+      this.$copyText(msg)
     }
   }
 }
