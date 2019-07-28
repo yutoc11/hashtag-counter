@@ -21,6 +21,7 @@
 import firebase from '~/plugins/firebase'
 import { mapActions, mapState, mapGetters } from 'vuex'
 export default {
+  
   data() {
     return {
       email: '',
@@ -31,11 +32,13 @@ export default {
     ...mapState(['user']),
     ...mapGetters(['isAuthenticated'])
   },
+
   mounted() {
     firebase.auth().onAuthStateChanged((user) => {
       this.setUser(user)
     })
   },
+
   methods : {
     ...mapActions(['setUser']),
     login() {
