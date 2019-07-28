@@ -23,7 +23,6 @@ export default {
     return {
       isWaiting: true,
       isLogin: false,
-      user: []
     }
   },
   mounted: function () {
