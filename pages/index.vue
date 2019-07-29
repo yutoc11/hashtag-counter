@@ -26,8 +26,10 @@
             auto-grow
             solo
             )
-          v-container
-            p.headline.text-xs-center.pink--text.font-weight-bold #の数：{{ now_hashtag_count }}
+
+          v-layout.mb-3(justify-center)
+            .circle #
+            p.hashtag_count.text-xs-center.font-weight-bold.ml-2 {{ now_hashtag_count }}
 
           v-layout(align-center justify-space-between row fill-height)
             v-btn(
@@ -155,6 +157,25 @@ export default {
 
 .v-alert{
   border-radius: 15px;
+}
+
+.circle{
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  line-height: 50px;
+  font-size: 1.5rem;
+  text-align: center;
+  background-color: #C33C5B;
+  color: #fff;
+  font-weight: bold;
+  opacity: 0.5;
+}
+
+.hashtag_count{
+  line-height: 50px;
+  color: #757575;
+  font-size: 1.5rem;
 }
 
 </style>
