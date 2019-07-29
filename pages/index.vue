@@ -30,7 +30,10 @@
             p.headline.text-xs-center.pink--text.font-weight-bold #の数：{{ now_hashtag_count }}
 
           v-layout(align-center justify-space-between row fill-height)
-            v-btn(round) クリア
+            v-btn(
+              round
+              @click="clearHashtag(content)"
+              ) クリア
               v-icon clear
             v-btn(
               round
@@ -114,8 +117,8 @@ export default {
 
   methods: {
 
-    onCopy(msg) {
-      this.$copyText(msg)
+    onCopy(content) {
+      this.$copyText(content)
       return this.flash_message = "コピーしました"
     },
 
@@ -135,7 +138,12 @@ export default {
         }else{
           return this.flash_message = "タイトルとコンテンツはどちらも入力してください"
         }
-      }
+      },
+
+    clearHashtag(content) {
+      this.content = ''
+      return this.flash_message = "入力内容をクリしました"
+    },
     }
 }
 </script>
