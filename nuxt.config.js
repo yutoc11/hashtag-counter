@@ -29,7 +29,9 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    { src: "~plugins/persistedstate.js", ssr: false }
+    { src: "~plugins/persistedstate.js", ssr: false },
+    { src: "~plugins/auth.js", ssr: false }
+
   ],
   /*
   ** Nuxt.js modules
@@ -39,7 +41,8 @@ export default {
     'nuxt-buefy',
     '@nuxtjs/vuetify',
     'nuxt-fontawesome',
-    'nuxt-clipboard2'
+    'nuxt-clipboard2',
+    '@nuxtjs/axios'
   ],
 
   fontawesome: {
