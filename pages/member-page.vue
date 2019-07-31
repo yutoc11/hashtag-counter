@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import MembersOnly from '~/components/members-only.vue'
+import MembersOnly from '~/components/MembersOnly.vue'
 
 export default {
   components: {

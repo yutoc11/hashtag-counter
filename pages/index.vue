@@ -50,22 +50,49 @@
 
     v-divider
 
+    p {{ user.uid }}
+
     v-container
       h2.headline.text-xs-center.font-weight-thin
         | My hashtag set
     v-layout(justify-center)
       v-flex(xs12 md8)
         v-expansion-panel
-            my-hashtag
+          v-expansion-panel-content
+            template(v-slot:header)
+              div テストはテスト
+            v-card
+              v-card-text めっちゃテストがこれ
+            v-layout(align-center justify-space-between row fill-height)
+              v-btn(small round)
+                v-icon(small) delete
+              v-btn(small round)
+                v-icon(small) edit
+              v-btn(small round)
+                v-icon(small) file_copy
+          v-expansion-panel-content(v-for="(hashtagset, key) in hashtagsets" :key="key")
+            template(v-slot:header)
+              div {{ hashtagset.title }}
+            v-card
+              v-card-text {{ hashtagset.content }}
+            v-layout(align-center justify-space-between row fill-height)
+              v-btn(small round)
+                v-icon(small) delete
+              v-btn(small round)
+                v-icon(small) edit
+              v-btn(small round)
+                v-icon(small) file_copy
 
 </template>
 
 <script>
-import HashtagInput from '~/components/HashtagInput'
-import MyHashtag from '~/components/MyHashtag'
+//import HashtagInput from '~/components/HashtagInput'
+//import MyHashtag from '~/components/MyHashtag'
 
 import firebase from '@/plugins/firebase'
+import store from '~/store/index.js'
 import { mapActions, mapState, mapGetters } from 'vuex'
+
 
 export default {
   name: 'HomePage',
@@ -75,22 +102,27 @@ export default {
       title:'',
       content:'',
       flash_message: '',
+
     };
   },
 
   asyncData () {
     return {
       user: [],
-      isLogin: false,
+      hashtagsets: []
     }
   },
 
   components: {
     //HashtagInput
-    MyHashtag
+    //MyHashtag
   },
 
   computed: {
+
+    ...mapState(['user']),
+    ...mapGetters(['isAuthenticated']),
+
     now_hashtag_count() {
       var input_text = this.content
       var hashtag_count = input_text.match(/#\S/g)
@@ -103,21 +135,36 @@ export default {
 
   },
 
-  mounted: function () {
+  beforeCreate: function(){
+    firebase.auth().onAuthStateChanged((user)=> {
+    if (user) {
+      this.user = user
+      console.log('test1')
+      console.log(this.user.uid)
 
-    firebase.auth().onAuthStateChanged(user => {
-      this.isWaiting = false
-      if (user) {
-        this.isLogin = true
-        this.user = user
-      } else {
-        this.isLogin = false
-        this.user = []
+      firebase
+      .database()
+      .ref('hashtagsets/' + this.user.uid)
+      .once('value')
+      .then(result => {
+        if (result.val()) {
+          this.hashtagsets = result.val();
+        }
+      })
+
       }
     })
   },
 
+  created: function(){
+
+  },
+
+  mounted: function () {
+  },
+
   methods: {
+    ...mapActions(['setUser']),
 
     onCopy(content) {
       this.$copyText(content)
