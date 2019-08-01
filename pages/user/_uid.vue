@@ -1,7 +1,16 @@
 <template lang="pug">
   section.section
-    p {{ user.displayName }}
-    p {{ user.email }}
+    v-layout.text-xs-center(justify-center row)
+        v-container.text-xs-center.white
+          v-card(flat)
+            v-card-title(primary-title)
+              h4 プロフィールを変更する
+            v-form
+              v-text-field(prepend-icon="person" name="email" label="メールアドレス" type="text" :value="user.email")
+              v-text-field(prepend-icon="lock" name="password" label="現在のパスワード" type="password" :value="password")
+              v-text-field(prepend-icon="lock" name="password_confirm" label="パスワード確認用" type="password")
+              v-card-actions
+                v-btn(primary block round @click="changeProfile") 変更する（まだできない）
 
 </template>
 
@@ -16,6 +25,9 @@ export default {
 
   data () {
     return {
+      email: '',
+      password: '',
+      password_confirm: '',
 
     };
   },
