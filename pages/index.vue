@@ -77,7 +77,10 @@
               v-card-text {{ hashtagset.content }}
             v-layout(align-center justify-space-between row fill-height)
               v-btn(small round)
-                v-icon(small) delete
+                v-icon(
+                  small,
+                  @click="deleteHashtagset(key)"
+                  ) delete
               v-btn(small round)
                 v-icon(small) edit
               v-btn(small round)
@@ -193,7 +196,11 @@ export default {
       this.content = ''
       return this.flash_message = "入力内容をクリしました"
     },
+
+    deleteHashtagset(key){
+      firebase.database().ref('hashtagsets/' + this.user.uid + '/' + key).remove();
     }
+  }
 }
 </script>
 
