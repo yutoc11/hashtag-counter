@@ -12,6 +12,8 @@
               v-card-actions
                 v-btn(primary block round @click="changeProfile") 変更する（まだできない）
 
+    v-btn.my-3(primary round @click="deleteUser")  退会する
+
 </template>
 
 <script>
@@ -87,6 +89,16 @@ export default {
 
   methods: {
     ...mapActions(['setUser']),
+
+    deleteUser(){
+      var user = firebase.auth().currentUser;
+      user.delete().then(function() {
+        // User deleted.
+        }).catch(function(error) {
+          // An error happened.
+          });
+      this.$router.push("/")
+      }
   }
 }
 </script>
