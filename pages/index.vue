@@ -1,7 +1,7 @@
 <template lang="pug">
   section.section
 
-    nuxt-link(:to="mypageUrl") マイページ
+    nuxt-link(v-if="this.user.uid" :to="mypageUrl") マイページ
 
     //コンポーネントでうまくできないので一旦こちらに なぜかフラッシュメッセージでなくなった
     v-layout(v-if="flash_message")
