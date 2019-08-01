@@ -28,20 +28,15 @@
 <script>
 import { mapActions, mapState, mapGetters } from 'vuex'
 
-import HashtagInput from '~/components/HashtagInput'
-import MyHashtag from '~/components/MyHashtag'
 import MailPasswordForm from '~/components/MailPasswordForm'
 
 import firebase from '@/plugins/firebase'
 
 export default {
-  name: 'HomePage',
   email: '',
   password: '',
 
   components: {
-    HashtagInput,
-    MyHashtag,
     MailPasswordForm
   },
 
@@ -55,17 +50,24 @@ export default {
   },
 
   mounted: function () {
-    firebase.auth().onAuthStateChanged(user => {
-      this.isWaiting = false
-      if (user) {
-        this.isLogin = true
-        this.user = user
-        // ログイン状態の場合はメンバーページへ遷移する
-        this.$router.push("/member-page")
-      } else {
-        this.isLogin = false
-        this.user = []
-      }
+    firebase.auth().onAuthStateChanged((user)=> {
+      var user = firebase.auth().currentUser;
+        if (user) {
+
+          this.user = user
+
+          this.isLogin = true
+          console.log(this)
+          console.log(user)
+          this.userData = user
+          this.$store.commit('login', this.userData)
+
+          this.$router.push("/")
+
+        } else {
+          this.isLogin = false
+          this.userData = null
+        };
     })
   },
 

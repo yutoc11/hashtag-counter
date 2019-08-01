@@ -1,6 +1,7 @@
 <template lang="pug">
   section.section
 
+    nuxt-link(:to="mypageUrl") マイページ
 
     //コンポーネントでうまくできないので一旦こちらに なぜかフラッシュメッセージでなくなった
     v-layout(v-if="flash_message")
@@ -123,6 +124,10 @@ export default {
     ...mapState(['user']),
     ...mapGetters(['isAuthenticated']),
 
+    ...mapState({
+      mypageUrl: (state) => `/user/${state.user.uid}`
+    }),
+
     now_hashtag_count() {
       var input_text = this.content
       var hashtag_count = input_text.match(/#\S/g)
@@ -137,22 +142,30 @@ export default {
 
   beforeCreate: function(){
     firebase.auth().onAuthStateChanged((user)=> {
-    if (user) {
-      this.user = user
-      console.log('test1')
-      console.log(this.user.uid)
+      var user = firebase.auth().currentUser; // eslint-disable-line
+        if (user) {
 
-      firebase
-      .database()
-      .ref('hashtagsets/' + this.user.uid)
-      .once('value')
-      .then(result => {
-        if (result.val()) {
-          this.hashtagsets = result.val();
-        }
-      })
+          this.user = user
 
-      }
+          this.isLogin = true
+          console.log(this)
+          console.log(user)
+          this.userData = user
+          this.$store.commit('login', this.userData)
+
+          firebase
+          .database()
+          .ref('hashtagsets/' + this.user.uid)
+          .once('value')
+          .then(result => {
+            if (result.val()) {
+              this.hashtagsets = result.val();
+            }
+          })
+        } else {
+          this.isLogin = false
+          this.userData = null
+        };
     })
   },
 
