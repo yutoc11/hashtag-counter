@@ -45,10 +45,8 @@ export default {
   },
 
   computed: {
-
     ...mapState(['user']),
     ...mapGetters(['isAuthenticated']),
-
   },
 
   beforeCreate: function(){
@@ -63,16 +61,6 @@ export default {
           console.log(user)
           this.userData = user
           this.$store.commit('login', this.userData)
-
-          firebase
-          .database()
-          .ref('hashtagsets/' + this.user.uid)
-          .once('value')
-          .then(result => {
-            if (result.val()) {
-              this.hashtagsets = result.val();
-            }
-          })
         } else {
           this.isLogin = false
           this.userData = null
@@ -89,6 +77,8 @@ export default {
 
   methods: {
     ...mapActions(['setUser']),
+
+
 
     deleteUser(){
       var user = firebase.auth().currentUser;

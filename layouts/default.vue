@@ -7,7 +7,11 @@
       v-toolbar-title.font-weight-bold
         nuxt-link.white--text.font-weight-bold(to="/") #カウンター
       v-spacer
-      v-toolbar-items
+      v-toolbar-items(v-if="this.user.uid")
+        v-btn(flat)
+          //nuxt-link.white--text.font-weight-bold(:to="mypageUrl") マイページ
+          nuxt-link.white--text.font-weight-bold(to="/login") マイページにしたいけどうまくいかない
+      v-toolbar-items(v-else)
         v-btn(flat)
           nuxt-link.white--text.font-weight-bold(to="/login") ログイン
         v-btn.font-weight-bold 新規登録
@@ -29,10 +33,14 @@
 </template>
 
 <script>
+import firebase from '@/plugins/firebase'
+import store from '~/store/index.js'
+import { mapActions, mapState, mapGetters } from 'vuex'
 
 export default {
   data() {
     return {
+      user: [],
       items: [
         {
           title: 'Home',
@@ -46,7 +54,41 @@ export default {
         }
       ]
     }
-  }
+  },
+
+  asyncData () {
+    return {
+      user: [],
+    }
+  },
+
+  computed: {
+    ...mapState(['user']),
+
+    ...mapState({
+      mypageUrl: (state) => `/user/${state.user.uid}`
+    }),
+  },
+
+  beforeCreate: function(){
+    firebase.auth().onAuthStateChanged((user)=> {
+      var user = firebase.auth().currentUser; // eslint-disable-line
+        if (user) {
+
+          this.user = user
+
+          this.isLogin = true
+          console.log(this)
+          console.log(user)
+          this.userData = user
+          this.$store.commit('login', this.userData)
+
+        } else {
+          this.isLogin = false
+          this.userData = null
+        };
+    })
+  },
 }
 </script>
 
