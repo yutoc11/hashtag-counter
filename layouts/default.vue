@@ -14,7 +14,8 @@
       v-toolbar-items(v-else)
         v-btn(flat)
           nuxt-link.white--text.font-weight-bold(to="/login") ログイン
-        v-btn.font-weight-bold 新規登録
+        v-btn
+          nuxt-link.black--text.font-weight-bold(to="/signup") 新規登録
 
     v-content
       v-container
