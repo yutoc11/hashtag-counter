@@ -12,42 +12,7 @@
         type="success"
         ) {{ flash_message }}
 
-    v-layout(justify-center)
-      v-flex(xs12 md8)
-        v-form
-          v-text-field(
-            label="タイトル"
-            v-model="title"
-            solo
-            )
-          v-textarea(
-            placeholder="Instagramに載せたいハッシュタグまとめをご入力ください。"
-            v-model="content"
-            maxlength="500"
-            auto-grow
-            solo
-            )
-
-          v-layout.mb-3(justify-center)
-            .circle #
-            p.hashtag_count.text-xs-center.font-weight-bold.ml-2 {{ now_hashtag_count }}
-
-          v-layout(align-center justify-space-between row fill-height)
-            v-btn(
-              round
-              @click="clearHashtag(content)"
-              ) クリア
-              v-icon clear
-            v-btn(
-              round
-              @click="saveHashtag(title,content)"
-              )
-              v-icon add_circle_outline
-            v-btn.copy-button(
-              round
-              @click="onCopy(content)"
-              )
-              v-icon file_copy
+    hashtag-input
 
     v-divider
 
@@ -86,7 +51,7 @@
 </template>
 
 <script>
-//import HashtagInput from '~/components/HashtagInput'
+import HashtagInput from '~/components/HashtagInput'
 //import MyHashtag from '~/components/MyHashtag'
 
 import firebase from '@/plugins/firebase'
@@ -99,10 +64,8 @@ export default {
 
   data () {
     return {
-      title:'',
-      content:'',
+      now_hashtag_count:'',
       flash_message: '',
-
     };
   },
 
@@ -114,7 +77,7 @@ export default {
   },
 
   components: {
-    //HashtagInput
+    HashtagInput
     //MyHashtag
   },
 
@@ -128,6 +91,7 @@ export default {
     }),
 
     now_hashtag_count() {
+      console.log('親でハッシュタグカウントしようとしています')
       var input_text = this.content
       var hashtag_count = input_text.match(/#\S/g)
       if(hashtag_count){
@@ -136,6 +100,7 @@ export default {
         return 0;
       }
     }
+
 
   },
 
@@ -173,45 +138,14 @@ export default {
   },
 
   mounted: function () {
+
   },
 
   methods: {
     ...mapActions(['setUser']),
 
-    onCopy(content) {
-      this.$copyText(content)
-      return this.flash_message = "コピーしました"
-    },
 
-    saveHashtag(title,content) {
-      if(this.user.uid){
-        if( title && content){
-          // 新しいテキストのためのキーを取得
-          var newHashtagKey = firebase.database().ref().child('hashtagsets').push().key;
-          firebase
-            .database()
-            .ref('hashtagsets/' + this.user.uid　+ '/' + newHashtagKey)
-            .set(
-              {
-                title: title,
-                content: content
-              }
-            )
-            return this.flash_message = "保存しました。"
-          }else{
-            return this.flash_message = "タイトルとコンテンツはどちらも入力してください"
-          }
-      }else{
-        //とりあえずフラッシュ
-        return this.flash_message = "保存はログインユーザー限定の機能です。"
-      }
 
-      },
-
-    clearHashtag(content) {
-      this.content = ''
-      return this.flash_message = "入力内容をクリしました"
-    },
 
     deleteHashtagset(key){
       firebase.database().ref('hashtagsets/' + this.user.uid + '/' + key).remove();
