@@ -56,36 +56,32 @@
     v-container
       h2.headline.text-xs-center.font-weight-thin
         | My hashtag set
-    v-layout(justify-center)
+    v-layout(justify-center v-if="this.user.uid")
       v-flex(xs12 md8)
         v-expansion-panel
-          v-expansion-panel-content
-            template(v-slot:header)
-              div テストはテスト
-            v-card
-              v-card-text めっちゃテストがこれ
-            v-layout(align-center justify-space-between row fill-height)
-              v-btn(small round)
-                v-icon(small) delete
-              v-btn(small round)
-                v-icon(small) edit
-              v-btn(small round)
-                v-icon(small) file_copy
           v-expansion-panel-content(v-for="(hashtagset, key) in hashtagsets" :key="key")
             template(v-slot:header)
               div {{ hashtagset.title }}
             v-card
               v-card-text {{ hashtagset.content }}
             v-layout(align-center justify-space-between row fill-height)
-              v-btn(small round)
+              v-btn(small round @click="deleteHashtagset(key)")
                 v-icon(
                   small,
-                  @click="deleteHashtagset(key)"
                   ) delete
               v-btn(small round)
                 v-icon(small) edit
               v-btn(small round)
                 v-icon(small) file_copy
+    v-container.text-xs-center(justify-center v-else)
+      h3.head ログインをすると、ハッシュタグが保存できるようになります。
+      nuxt-link(to="/login")
+        v-btn.my-3.white--text.font-weight-bold(
+          outline
+          round
+          color="pink darken-2"
+          )  登録して保存してみる
+
 
 </template>
 
@@ -188,21 +184,28 @@ export default {
     },
 
     saveHashtag(title,content) {
-      if( title && content){
-        // 新しいテキストのためのキーを取得
-        var newHashtagKey = firebase.database().ref().child('hashtagsets').push().key;
-        firebase
-          .database()
-          .ref('hashtagsets/' + this.user.uid　+ '/' + newHashtagKey)
-          .set(
-            {
-              title: title,
-              content: content
-            }
-          )
-        }else{
-          return this.flash_message = "タイトルとコンテンツはどちらも入力してください"
-        }
+      if(this.user.uid){
+        if( title && content){
+          // 新しいテキストのためのキーを取得
+          var newHashtagKey = firebase.database().ref().child('hashtagsets').push().key;
+          firebase
+            .database()
+            .ref('hashtagsets/' + this.user.uid　+ '/' + newHashtagKey)
+            .set(
+              {
+                title: title,
+                content: content
+              }
+            )
+            return this.flash_message = "保存しました。"
+          }else{
+            return this.flash_message = "タイトルとコンテンツはどちらも入力してください"
+          }
+      }else{
+        //とりあえずフラッシュ
+        return this.flash_message = "保存はログインユーザー限定の機能です。"
+      }
+
       },
 
     clearHashtag(content) {
