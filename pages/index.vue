@@ -75,7 +75,7 @@
                 v-icon(small) file_copy
     v-container.text-xs-center(justify-center v-else)
       h3.head ログインをすると、ハッシュタグが保存できるようになります。
-      nuxt-link(to="/login")
+      nuxt-link(to="/signup")
         v-btn.my-3.white--text.font-weight-bold(
           outline
           round

@@ -21,7 +21,7 @@
 import firebase from '~/plugins/firebase'
 import { mapActions, mapState, mapGetters } from 'vuex'
 export default {
-  
+
   data() {
     return {
       email: '',

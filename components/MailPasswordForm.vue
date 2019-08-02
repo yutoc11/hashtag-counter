@@ -9,11 +9,44 @@
               v-text-field(prepend-icon="person" name="email" label="メールアドレス" type="text" v-model="email")
               v-text-field(prepend-icon="lock" name="password" label="パスワード" type="password" v-model="password")
               v-card-actions
-                v-btn(primary block round @click="emailLogin") {{ login_or_signup }}
+                v-btn(primary block round @click="emailpassClick(email,password)") {{ login_or_signup }}
 </template>
 
 <script>
 export default {
-  props: ['login_or_signup']
+
+  props: ['login_or_signup'],
+
+  data () {
+    return {
+      email: '',
+      password: ''
+    };
+  },
+
+  asyncData () {
+    return {
+      login_or_signup: '',
+    }
+  },
+
+  methods: {
+
+    emailpassClick(email,password){
+      this.$parent.email = this.email;
+      this.$parent.password = this.password;
+
+      if(this.$route.name == 'login'){
+        //ログイン処理
+        this.$emit('emailpass-click-login');
+
+      }else if(this.$route.name == 'signup'){
+        //新規登録処理
+        this.$emit('emailpass-click-signup');
+      }
+
+    }
+
+  }
 }
 </script>

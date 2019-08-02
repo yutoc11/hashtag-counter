@@ -20,7 +20,8 @@
 
     v-container
       mail-password-form(
-        :login_or_signup="login_or_signup")
+        :login_or_signup="login_or_signup"
+        @emailpass-click-signup="emailSignup")
 
     v-divider
 </template>
@@ -79,18 +80,18 @@ export default {
       firebase.auth().signInWithRedirect(provider)
       .then(user => {
         // ログインしたら飛ぶページを指定　したいけど動いてない
-        this.$router.push("/member-page")
+        this.$router.push("/")
       }).catch((error) => {
         alert(error)
       });
     },
 
     // コンポーネントの方にかく？うまくいっていない
-    emailLogin() {
-      firebase.auth().signInWithEmailAndPassword(this.email, this.password)
+    emailSignup() {
+      firebase.auth().createUserWithEmailAndPassword(this.email, this.password)
       .then(user => {
         // ログインしたら飛ぶページを指定
-        this.$router.push("/member-page")
+        this.$router.push("/")
       }).catch((error) => {
         alert(error)
       });

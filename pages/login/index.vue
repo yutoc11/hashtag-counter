@@ -20,21 +20,21 @@
 
     v-container
       mail-password-form(
-        :login_or_signup="login_or_signup")
+        :login_or_signup="login_or_signup"
+        @emailpass-click-login="emailLogin")
 
     v-divider
 </template>
 
 <script>
-import { mapActions, mapState, mapGetters } from 'vuex'
 
 import MailPasswordForm from '~/components/MailPasswordForm'
 
 import firebase from '@/plugins/firebase'
+import store from '~/store/index.js'
+import { mapActions, mapState, mapGetters } from 'vuex'
 
 export default {
-  email: '',
-  password: '',
 
   components: {
     MailPasswordForm
@@ -45,11 +45,17 @@ export default {
       login_or_signup: 'ログイン',
       isWaiting: true,
       isLogin: false,
-      user: []
+      user: [],
+      email: '',
+      password: '',
+      login_data: [],
     }
   },
 
   mounted: function () {
+    console.log( this.$route.path )
+    console.log( this.$route.name )
+
     firebase.auth().onAuthStateChanged((user)=> {
       var user = firebase.auth().currentUser;
         if (user) {
@@ -79,7 +85,7 @@ export default {
       firebase.auth().signInWithRedirect(provider)
       .then(user => {
         // ログインしたら飛ぶページを指定　したいけど動いてない
-        this.$router.push("/member-page")
+        this.$router.push("/")
       }).catch((error) => {
         alert(error)
       });
@@ -90,7 +96,7 @@ export default {
       firebase.auth().signInWithEmailAndPassword(this.email, this.password)
       .then(user => {
         // ログインしたら飛ぶページを指定
-        this.$router.push("/member-page")
+        this.$router.push("/")
       }).catch((error) => {
         alert(error)
       });
