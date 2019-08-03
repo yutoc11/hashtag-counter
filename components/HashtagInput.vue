@@ -17,26 +17,30 @@
           solo
           )
 
-        v-layout.mb-3(justify-center)
-          .circle #
-          p.hashtag_count.text-xs-center.font-weight-bold.ml-2 {{ now_hashtag_count }}
-
         v-layout(align-center justify-space-between row fill-height)
-          v-btn(
+          v-btn.caption(
             round
             @click="clearHashtag(content)"
             ) クリア
-            v-icon clear
-          v-btn(
-            round
-            @click="saveHashtag(title,content)"
-            )
-            v-icon add_circle_outline
-          v-btn.copy-button(
+            v-icon.pl-1 clear
+          v-btn.caption.copy-button(
             round
             @click="copyHashtag(content)"
-            )
-            v-icon file_copy
+            ) コピー
+            v-icon.pl-1 file_copy
+
+        v-layout.my-2(justify-center)
+          .circle #
+          p.hashtag_count.text-xs-center.font-weight-bold.ml-2 {{ now_hashtag_count }}
+
+        v-layout(align-center justify-center row fill-height)
+          v-btn.my-3.white--text.font-weight-bold(
+            outline
+            round
+            color="pink darken-2"
+            @click="saveHashtag(title,content)"
+            )  保存
+            v-icon.pl-2 add_circle_outline
 </template>
 
 <script>
