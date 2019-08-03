@@ -3,14 +3,14 @@
 
     v-toolbar.white--text(color="pink darken-2")
       app
-      v-toolbar-side-icon.white--text
-      v-toolbar-title.font-weight-bold
+      //v-toolbar-side-icon.white--text
+      v-toolbar-title.pt-1.px-0
         nuxt-link.white--text.font-weight-bold(to="/") #カウンター
       v-spacer
       v-toolbar-items(v-if="this.user.uid")
         v-btn(flat)
           //nuxt-link.white--text.font-weight-bold(:to="mypageUrl") マイページ
-          nuxt-link.white--text.font-weight-bold(to="/login") マイページにしたいけどうまくいかない
+          nuxt-link.white--text.font-weight-bold(to="/login") マイページ
       v-toolbar-items(v-else)
         v-btn(flat)
           nuxt-link.white--text.font-weight-bold(to="/login") ログイン
