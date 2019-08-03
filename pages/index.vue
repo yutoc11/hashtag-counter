@@ -21,6 +21,8 @@
     v-container
       h2.headline.text-xs-center.font-weight-thin
         | My hashtag set
+
+    //保存されたハッシュタグセットもゆくゆくはコンポーネント化
     v-layout(justify-center v-if="this.user.uid")
       v-flex(xs12 md8)
         v-expansion-panel
@@ -38,6 +40,7 @@
                 v-icon(small) edit
               v-btn(small round)
                 v-icon(small) file_copy
+
     v-container.text-xs-center(justify-center v-else)
       h3.head ログインをすると、ハッシュタグが保存できるようになります。
       nuxt-link(to="/signup")
@@ -52,7 +55,7 @@
 
 <script>
 import HashtagInput from '~/components/HashtagInput'
-//import MyHashtag from '~/components/MyHashtag'
+//import MyHashtag from '~/components/MyHashtagSet'
 
 import firebase from '@/plugins/firebase'
 import store from '~/store/index.js'
@@ -77,8 +80,8 @@ export default {
   },
 
   components: {
-    HashtagInput
-    //MyHashtag
+    HashtagInput,
+    //MyHashtagSet
   },
 
   computed: {
@@ -90,18 +93,6 @@ export default {
       mypageUrl: (state) => `/user/${state.user.uid}`
     }),
 
-    now_hashtag_count() {
-      console.log('親でハッシュタグカウントしようとしています')
-      var input_text = this.content
-      var hashtag_count = input_text.match(/#\S/g)
-      if(hashtag_count){
-        return hashtag_count.length;
-      }else{
-        return 0;
-      }
-    }
-
-
   },
 
   beforeCreate: function(){
@@ -112,6 +103,7 @@ export default {
           this.user = user
 
           this.isLogin = true
+          console.log('親コンポーネントのbeforeCreateの処理を開始しました')
           console.log(this)
           console.log(user)
           this.userData = user
@@ -124,6 +116,7 @@ export default {
           .then(result => {
             if (result.val()) {
               this.hashtagsets = result.val();
+              console.log(this.hashtagsets)
             }
           })
         } else {
