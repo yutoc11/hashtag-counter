@@ -24,7 +24,10 @@
 
     //保存されたハッシュタグセットもゆくゆくはコンポーネント化
     v-layout(justify-center v-if="this.user.uid")
-      v-flex(xs12 md8)
+      v-container.text-xs-center(justify-center v-if='hashtagsets == ""')
+        h3.head ハッシュタグを保存すると、コピーや編集ができるようになります。
+
+      v-flex(xs12 md8 v-else)
         v-expansion-panel
           v-expansion-panel-content(v-for="(hashtagset, key) in hashtagsets" :key="key")
             template(v-slot:header)
@@ -40,6 +43,8 @@
                 v-icon(small) edit
               v-btn(small round)
                 v-icon(small) file_copy
+
+
 
     v-container.text-xs-center(justify-center v-else)
       h3.head ログインをすると、ハッシュタグが保存できるようになります。
@@ -142,10 +147,25 @@ export default {
     ...mapActions(['setUser']),
 
 
-
+    clearMessage(){
+      this.flash_message = ""
+    },
 
     deleteHashtagset(key){
       firebase.database().ref('hashtagsets/' + this.user.uid + '/' + key).remove();
+
+      this.flash_message = "このハッシュタグセットを削除しました。"
+      setTimeout(this.clearMessage,3000),
+
+      firebase
+      .database()
+      .ref('hashtagsets/' + this.user.uid)
+      .once('value')
+      .then(result => {
+        if (result.val()) {
+          this.hashtagsets = result.val();
+        }
+      })
     }
   }
 }
