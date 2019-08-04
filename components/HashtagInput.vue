@@ -3,12 +3,31 @@
   v-layout(justify-center)
     v-flex(xs12 md8)
       v-form
-        v-text-field(
+        v-text-field.mb-0(
           label="タイトル"
           v-model="title"
           solo
           )
+
+        v-layout(align-center justify-end row)
+          v-btn.add_hashtag.mb-2.mr-1.caption.grey--text(
+            text
+            fab
+            depressed
+            small
+            @click="addHashtag(content)"
+            )  #
+          v-btn.add_hashtag.mb-2.mr-1.caption.grey--text(
+            text
+            fab
+            depressed
+            small
+            @click="addSpace(content)"
+            )  ␣
+
         v-textarea(
+          id="hashtag_input"
+          ref="r"
           placeholder="Instagramに載せたいハッシュタグまとめをご入力ください。"
           v-model="content"
           @input="updateValue"
@@ -19,15 +38,22 @@
 
         v-layout(align-center justify-space-between row fill-height)
           v-btn.caption(
+            small
+            outline
             round
+            color="grey lighten-1"
             @click="clearHashtag(content)"
-            ) クリア
+            ) すべてクリア
             v-icon.pl-1 clear
           v-btn.caption.copy-button(
+            small
+            fab
+            outline
             round
+            color="grey darken-1"
             @click="copyHashtag(content)"
-            ) コピー
-            v-icon.pl-1 file_copy
+            )
+            v-icon file_copy
 
         v-layout.my-2(justify-center)
           .circle #
@@ -55,6 +81,7 @@ export default {
       now_hashtag_count:0,
       title:'',
       content:'',
+      input_text:'',
     };
   },
 
@@ -79,9 +106,43 @@ export default {
       }
     },
 
+    addHashtag(content) {
+
+      console.log('#を追加したいボタンたっぷ')
+
+      var text_val = this.content
+      console.log(text_val)
+
+      var all_len = text_val.length
+      console.log(all_len)
+
+      var select_len  = hashtag_input.selectionStart
+      console.log(select_len)
+
+      var first   = text_val.substr(0, select_len)
+      var insert     = '#'
+      console.log(insert)
+
+      var latter    = text_val.substr(select_len, all_len)
+      text_val = first + insert + latter
+      console.log(text_val)
+
+      this.content = text_val
+
+      this.$nextTick(() =>
+        this.$refs.r.focus(),
+        console.log('フォーカスなう'),
+        // セレクションレンジが効かない
+        // this.$refs.r.setSelectionRange(5, 10),
+        // console.log('セレクションレンジ'),
+      )
+
+    },
+
     clearHashtag(content) {
-      console.log('コンポーネントのクリアをしようとしています')
-      this.content = '';
+      console.log('コンポーネントのクリアをしようとしています'),
+      this.content = ''
+      this.$refs.r.focus()
       return this.$parent.flash_message = "入力内容をクリアしました"
     },
 
@@ -117,3 +178,18 @@ export default {
   },
 }
 </script>
+<style>
+
+.add_hashtag{
+
+}
+
+.v-text-field.v-text-field--enclosed .v-text-field__details{
+  margin-bottom:0;
+}
+
+.v-text-field__details{
+  display: none;
+}
+
+</style>
