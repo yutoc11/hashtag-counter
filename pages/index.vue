@@ -96,7 +96,7 @@ export default {
 
   },
 
-  beforeCreate: function(){
+  created: function(){
     firebase.auth().onAuthStateChanged((user)=> {
       var user = firebase.auth().currentUser; // eslint-disable-line
         if (user) {
@@ -110,6 +110,12 @@ export default {
           this.userData = user
           this.$store.commit('login', this.userData)
 
+          //var hashtagSetCountRef = firebase.database().ref('hashtagsets/' + this.user.uid);
+          //hashtagSetCountRef.on('value', function(snapshot) {
+          //  this.hashtagsets = snapshot.val();
+          //  console.log('なんか動いている？')
+          //});
+
           firebase
           .database()
           .ref('hashtagsets/' + this.user.uid)
@@ -118,6 +124,7 @@ export default {
             if (result.val()) {
               this.hashtagsets = result.val();
               console.log(this.hashtagsets)
+              console.log('こっちは動いているよね？')
             }
           })
         } else {
@@ -125,10 +132,6 @@ export default {
           this.userData = null
         };
     })
-  },
-
-  created: function(){
-
   },
 
   mounted: function () {

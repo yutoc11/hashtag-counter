@@ -184,6 +184,10 @@ export default {
       setTimeout(this.clearMessage,3000)
     },
 
+    redirectToHome(){
+      this.$router.push("/");
+    },
+
     saveHashtag(title,content) {
       if(this.$parent.user.uid){
         if( title && content){
@@ -199,7 +203,20 @@ export default {
               }
             )
           this.$parent.flash_message = "保存しました。"
-          setTimeout(this.clearMessage,3000)
+          this.content = ''
+          this.title = ''
+          setTimeout(this.clearMessage,3000),
+
+          firebase
+          .database()
+          .ref('hashtagsets/' + this.$parent.user.uid)
+          .once('value')
+          .then(result => {
+            if (result.val()) {
+              this.$parent.hashtagsets = result.val();
+              console.log(this.$parent.hashtagsets)
+            }
+          })
           }else{
             this.$parent.flash_message = "タイトルとコンテンツはどちらも入力してください"
             setTimeout(this.clearMessage,3000)
