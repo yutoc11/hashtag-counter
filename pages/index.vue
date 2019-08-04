@@ -1,16 +1,16 @@
 <template lang="pug">
   section.section
 
-    nuxt-link(v-if="this.user.uid" :to="mypageUrl") マイページ
+    v-layout(justify-center v-if="flash_message")
+      .flash_message_area
+        v-alert.caption.px-3.py-2.my-3(
+          outline
+          :value="true"
+          v-model="alert"
+          type="success"
+          ) {{ flash_message }}
 
-    //コンポーネントでうまくできないので一旦こちらに なぜかフラッシュメッセージでなくなった
-    v-layout(v-if="flash_message")
-      v-alert.px-2.py-2.my-3(
-        outline
-        dismissible
-        :value="true"
-        type="success"
-        ) {{ flash_message }}
+    nuxt-link(v-if="this.user.uid" :to="mypageUrl") マイページ
 
     hashtag-input
 
@@ -69,6 +69,7 @@ export default {
     return {
       now_hashtag_count:'',
       flash_message: '',
+      alert: true,
     };
   },
 
@@ -148,8 +149,18 @@ export default {
 </script>
 
 <style lang="scss">
+
+.flash_message_area{
+  position: absolute;
+  top:0px;
+  margin:0 auto;
+  z-index: 1000;
+  max-width: 250px;
+}
+
 .section{
   margin: 0 auto;
+  padding: 36px 24px;
 }
 
 .v-alert{

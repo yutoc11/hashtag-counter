@@ -139,11 +139,49 @@ export default {
 
     },
 
+    addSpace(content) {
+
+      console.log('#を追加したいボタンたっぷ')
+
+      var text_val = this.content
+      console.log(text_val)
+
+      var all_len = text_val.length
+      console.log(all_len)
+
+      var select_len  = hashtag_input.selectionStart
+      console.log(select_len)
+
+      var first   = text_val.substr(0, select_len)
+      var insert     = ' '
+      console.log(insert)
+
+      var latter    = text_val.substr(select_len, all_len)
+      text_val = first + insert + latter
+      console.log(text_val)
+
+      this.content = text_val
+
+      this.$nextTick(() =>
+        this.$refs.r.focus(),
+        console.log('フォーカスなう'),
+        // セレクションレンジが効かない
+        // this.$refs.r.setSelectionRange(5, 10),
+        // console.log('セレクションレンジ'),
+      )
+
+    },
+
+    clearMessage(){
+      this.$parent.flash_message = ""
+    },
+
     clearHashtag(content) {
       console.log('コンポーネントのクリアをしようとしています'),
       this.content = ''
       this.$refs.r.focus()
-      return this.$parent.flash_message = "入力内容をクリアしました"
+      this.$parent.flash_message = "入力内容をクリアしました"
+      setTimeout(this.clearMessage,3000)
     },
 
     saveHashtag(title,content) {
@@ -160,20 +198,24 @@ export default {
                 content: content
               }
             )
-            return this.$parent.flash_message = "保存しました。"
+          this.$parent.flash_message = "保存しました。"
+          setTimeout(this.clearMessage,3000)
           }else{
-            return this.$parent.flash_message = "タイトルとコンテンツはどちらも入力してください"
+            this.$parent.flash_message = "タイトルとコンテンツはどちらも入力してください"
+            setTimeout(this.clearMessage,3000)
           }
       }else{
         //とりあえずフラッシュ
-        return this.$parent.flash_message = "保存はログインユーザー限定の機能です。"
+        this.$parent.flash_message = "保存はログインユーザー限定の機能です。"
+        setTimeout(this.clearMessage,3000)
       }
 
       },
 
     copyHashtag(content) {
       this.$copyText(content)
-      return this.$parent.flash_message = "コピーしました"
+      this.$parent.flash_message = "コピーしました"
+      setTimeout(this.clearMessage,3000)
     },
   },
 }
