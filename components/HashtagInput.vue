@@ -8,7 +8,13 @@
           v-model="title"
           solo
           )
+        v-btn.caption(
+          round
+          @click="addHashtag(content)"
+          ) # +
         v-textarea(
+          id="hashtag_input"
+          ref="r"
           placeholder="Instagramに載せたいハッシュタグまとめをご入力ください。"
           v-model="content"
           @input="updateValue"
@@ -55,6 +61,7 @@ export default {
       now_hashtag_count:0,
       title:'',
       content:'',
+      input_text:'',
     };
   },
 
@@ -79,9 +86,43 @@ export default {
       }
     },
 
+    addHashtag(content) {
+
+      console.log('#を追加したいボタンたっぷ')
+
+      var text_val = this.content
+      console.log(text_val)
+
+      var all_len = text_val.length
+      console.log(all_len)
+
+      var select_len  = hashtag_input.selectionStart
+      console.log(select_len)
+
+      var first   = text_val.substr(0, select_len)
+      var insert     = '#'
+      console.log(insert)
+
+      var latter    = text_val.substr(select_len, all_len)
+      text_val = first + insert + latter
+      console.log(text_val)
+
+      this.content = text_val
+
+      this.$nextTick(() =>
+        this.$refs.r.focus(),
+        console.log('フォーカスなう'),
+        // セレクションレンジが効かない
+        this.$refs.r.setSelectionRange(5, 10),
+        console.log('セレクションレンジ'),
+      )
+
+    },
+
     clearHashtag(content) {
-      console.log('コンポーネントのクリアをしようとしています')
-      this.content = '';
+      console.log('コンポーネントのクリアをしようとしています'),
+      this.content = ''
+      this.$refs.r.focus()
       return this.$parent.flash_message = "入力内容をクリアしました"
     },
 
