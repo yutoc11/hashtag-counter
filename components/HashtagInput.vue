@@ -43,7 +43,7 @@
             round
             color="grey lighten-1"
             @click="clearHashtag(content)"
-            ) すべて消す
+            ) すべてクリア
             v-icon.pl-1 clear
           v-btn.caption.copy-button(
             small
