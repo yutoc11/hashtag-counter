@@ -113,8 +113,8 @@ export default {
         this.$refs.r.focus(),
         console.log('フォーカスなう'),
         // セレクションレンジが効かない
-        this.$refs.r.setSelectionRange(5, 10),
-        console.log('セレクションレンジ'),
+        // this.$refs.r.setSelectionRange(5, 10),
+        // console.log('セレクションレンジ'),
       )
 
     },
