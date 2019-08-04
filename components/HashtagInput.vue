@@ -3,15 +3,28 @@
   v-layout(justify-center)
     v-flex(xs12 md8)
       v-form
-        v-text-field(
+        v-text-field.mb-0(
           label="タイトル"
           v-model="title"
           solo
           )
-        v-btn.caption(
-          round
-          @click="addHashtag(content)"
-          ) # +
+
+        v-layout(align-center justify-end row)
+          v-btn.add_hashtag.mb-2.mr-1.caption.grey--text(
+            text
+            fab
+            depressed
+            small
+            @click="addHashtag(content)"
+            )  #
+          v-btn.add_hashtag.mb-2.mr-1.caption.grey--text(
+            text
+            fab
+            depressed
+            small
+            @click="addSpace(content)"
+            )  ␣
+
         v-textarea(
           id="hashtag_input"
           ref="r"
@@ -25,15 +38,22 @@
 
         v-layout(align-center justify-space-between row fill-height)
           v-btn.caption(
+            small
+            outline
             round
+            color="grey lighten-1"
             @click="clearHashtag(content)"
-            ) クリア
+            ) すべて消す
             v-icon.pl-1 clear
           v-btn.caption.copy-button(
+            small
+            fab
+            outline
             round
+            color="grey darken-1"
             @click="copyHashtag(content)"
-            ) コピー
-            v-icon.pl-1 file_copy
+            )
+            v-icon file_copy
 
         v-layout.my-2(justify-center)
           .circle #
@@ -158,3 +178,18 @@ export default {
   },
 }
 </script>
+<style>
+
+.add_hashtag{
+
+}
+
+.v-text-field.v-text-field--enclosed .v-text-field__details{
+  margin-bottom:0;
+}
+
+.v-text-field__details{
+  display: none;
+}
+
+</style>
