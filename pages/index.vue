@@ -35,13 +35,13 @@
             v-card
               v-card-text {{ hashtagset.content }}
             v-layout(align-center justify-space-between row fill-height)
-              v-btn(small round @click="deleteHashtagset(key)")
+              v-btn(small round fab depressed @click="deleteHashtagset(key)")
                 v-icon(
-                  small,
+                  small
                   ) delete
-              v-btn(small round)
+              v-btn(small round fab depressed)
                 v-icon(small) edit
-              v-btn(small round)
+              v-btn(small round fab depressed)
                 v-icon(small) file_copy
 
 
