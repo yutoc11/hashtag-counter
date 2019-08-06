@@ -1,6 +1,24 @@
 <template lang="pug">
   section.section
 
+    v-layout.edit_modal(justify-center)
+      v-dialog(v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition")
+        template(v-slot:activator="{ on }")
+          v-btn(color="primary" dark v-on="on") Open Dialog
+        v-card
+          v-toolbar(dark color="white")
+            v-btn(color="pink darken-2" icon dark @click="dialog = false")
+              v-icon close
+            v-toolbar-title.grey--text Hashtagsetの編集
+            v-spacer
+            v-toolbar-items
+              v-btn.white--text.font-weight-bold(color="pink darken-2" text @click="dialog = false") 更新する
+
+          hashtag-edit
+
+          v-divider
+
+
     v-layout(justify-center v-if="flash_message")
       .flash_message_area
         v-alert.caption.px-3.py-2.my-3(
@@ -39,7 +57,7 @@
                 v-icon(
                   small
                   ) delete
-              v-btn(small round fab depressed)
+              v-btn(small round fab depressed @click="editHashtagset(key)")
                 v-icon(small) edit
               v-btn(small round fab depressed)
                 v-icon(small) file_copy
@@ -60,6 +78,7 @@
 
 <script>
 import HashtagInput from '~/components/HashtagInput'
+import HashtagEdit from '~/components/HashtagEdit'
 //import MyHashtag from '~/components/MyHashtagSet'
 
 import firebase from '@/plugins/firebase'
@@ -75,6 +94,10 @@ export default {
       now_hashtag_count:'',
       flash_message: '',
       alert: true,
+      dialog: false,
+      notifications: false,
+      sound: true,
+      widgets: false,
     };
   },
 
@@ -87,6 +110,7 @@ export default {
 
   components: {
     HashtagInput,
+    HashtagEdit,
     //MyHashtagSet
   },
 
@@ -166,7 +190,13 @@ export default {
           this.hashtagsets = result.val();
         }
       })
-    }
+    },
+
+    editHashtagset(key){
+      firebase.database().ref('hashtagsets/' + this.user.uid + '/' + key)
+      console.log(hashtagset.title)
+      console.log(hashtagset.content)
+    },
   }
 }
 </script>
@@ -207,6 +237,10 @@ export default {
   line-height: 50px;
   color: #757575;
   font-size: 1.5rem;
+}
+
+.edit_modal{
+  background-color: #grey;
 }
 
 </style>
