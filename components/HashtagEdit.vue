@@ -1,12 +1,15 @@
 <!-- うまくいかないから一旦index.vueに直接入れてる -->
 <template lang="pug">
-  v-layout(justify-center)
-    v-flex(xs12 md8)
+  v-layout.mt-5(justify-center)
+    v-flex(xs10 md8)
       v-form
         v-text-field.mb-0(
-          label="タイトル"
-          v-model="title"
-          solo
+          label="編集後のタイトル"
+          v-model="titleEdit"
+          filled
+          auto-grow
+          rows="2"
+          row-height="20"
           )
 
         v-layout(align-center justify-end row)
@@ -15,25 +18,25 @@
             fab
             depressed
             small
-            @click="addHashtag(content)"
+            @click="addHashtagEdit(contentEdit)"
             )  #
           v-btn.add_hashtag.mb-2.mr-1.caption.grey--text(
             text
             fab
             depressed
             small
-            @click="addSpace(content)"
+            @click="addSpaceEdit(contentEdit)"
             )  ␣
 
         v-textarea(
-          id="hashtag_input"
+          id="hashtag_edit"
           ref="r"
-          placeholder="Instagramに載せたいハッシュタグまとめをご入力ください。"
-          v-model="content"
-          @input="updateValue"
+          label="ハッシュタグまとめを編集してください。"
+          v-model="contentEdit"
+          @input="updateValueEdit"
           maxlength="500"
           auto-grow
-          solo
+          filled
           )
 
         v-layout(align-center justify-space-between row fill-height)
@@ -42,31 +45,23 @@
             outline
             round
             color="grey lighten-1"
-            @click="clearHashtag(content)"
+            @click="clearHashtagEdit(contentEdit)"
             ) すべてクリア
             v-icon.pl-1 clear
-          v-btn.caption.copy-button(
+          //コピーなぜか効かないので一旦消去
+          //-v-btn.caption.copy-button(
             small
             fab
             outline
             round
             color="grey darken-1"
-            @click="copyHashtag(content)"
+            @click="copyHashtagEdit(contentEdit)"
             )
             v-icon file_copy
 
         v-layout.my-2(justify-center)
           .circle #
-          p.hashtag_count.text-xs-center.font-weight-bold.ml-2 {{ now_hashtag_count }}
-
-        v-layout(align-center justify-center row fill-height)
-          v-btn.my-3.white--text.font-weight-bold(
-            outline
-            round
-            color="pink darken-2"
-            @click="saveHashtag(title,content)"
-            )  保存
-            v-icon.pl-2 add_circle_outline
+          p.hashtag_count.text-xs-center.font-weight-bold.ml-2 {{ now_hashtag_count_edit }}
 </template>
 
 <script>
@@ -76,47 +71,49 @@ import { mapActions, mapState, mapGetters } from 'vuex'
 
 export default {
 
+  props: ['titleEdit','contentEdit'],
+
   data () {
     return {
-      now_hashtag_count:0,
-      title:'',
-      content:'',
-      input_text:'',
+      now_hashtag_count_edit:0,
+      titleEdit:'',
+      contentEdit:'',
+      input_text_edit:'',
     };
   },
 
   computed: {
 
-    content(){
+    contentEdit(){
       console.log('computedメッセージが変更されました')
     },
   },
 
   methods: {
 
-    updateValue(){
-      var input_text = this.content
-      var hashtag_count = input_text.match(/#\S/g)
-      if(hashtag_count){
-        var now_hashtag_count = hashtag_count.length
-        return this.now_hashtag_count = now_hashtag_count;
+    updateValueEdit(){
+      var input_text_edit = this.contentEdit
+      var hashtag_count_edit = input_text_edit.match(/#\S/g)
+      if(hashtag_count_edit){
+        var now_hashtag_count_edit = hashtag_count_edit.length
+        return this.now_hashtag_count_edit = now_hashtag_count_edit;
       }else{
-        var now_hashtag_count = 0
-        return this.now_hashtag_count = now_hashtag_count;
+        var now_hashtag_count_edit = 0
+        return this.now_hashtag_count_edit = now_hashtag_count_edit;
       }
     },
 
-    addHashtag(content) {
+    addHashtagEdit(contentEdit) {
 
       console.log('#を追加したいボタンたっぷ')
 
-      var text_val = this.content
+      var text_val = this.contentEdit
       console.log(text_val)
 
       var all_len = text_val.length
       console.log(all_len)
 
-      var select_len  = hashtag_input.selectionStart
+      var select_len  = hashtag_edit.selectionStart
       console.log(select_len)
 
       var first   = text_val.substr(0, select_len)
@@ -127,7 +124,7 @@ export default {
       text_val = first + insert + latter
       console.log(text_val)
 
-      this.content = text_val
+      this.contentEdit = text_val
 
       this.$nextTick(() =>
         this.$refs.r.focus(),
@@ -139,17 +136,17 @@ export default {
 
     },
 
-    addSpace(content) {
+    addSpaceEdit(contentEdit) {
 
       console.log('#を追加したいボタンたっぷ')
 
-      var text_val = this.content
+      var text_val = this.contentEdit
       console.log(text_val)
 
       var all_len = text_val.length
       console.log(all_len)
 
-      var select_len  = hashtag_input.selectionStart
+      var select_len  = hashtag_edit.selectionStart
       console.log(select_len)
 
       var first   = text_val.substr(0, select_len)
@@ -160,7 +157,7 @@ export default {
       text_val = first + insert + latter
       console.log(text_val)
 
-      this.content = text_val
+      this.contentEdit = text_val
 
       this.$nextTick(() =>
         this.$refs.r.focus(),
@@ -172,13 +169,13 @@ export default {
 
     },
 
-    clearMessage(){
+    clearMessageEdit(){
       this.$parent.flash_message = ""
     },
 
-    clearHashtag(content) {
+    clearHashtagEdit(contentEdit) {
       console.log('コンポーネントのクリアをしようとしています'),
-      this.content = ''
+      this.contentEdit = ''
       this.$refs.r.focus()
       this.$parent.flash_message = "入力内容をクリアしました"
       setTimeout(this.clearMessage,3000)
@@ -188,9 +185,9 @@ export default {
       this.$router.push("/");
     },
 
-    saveHashtag(title,content) {
+    saveHashtagEdit(titleEdit,contentEdit) {
       if(this.$parent.user.uid){
-        if( title && content){
+        if( titleEdit && contentEdit){
           // 新しいテキストのためのキーを取得
           var newHashtagKey = firebase.database().ref().child('hashtagsets').push().key;
           firebase
@@ -198,13 +195,13 @@ export default {
             .ref('hashtagsets/' + this.$parent.user.uid　+ '/' + newHashtagKey)
             .set(
               {
-                title: title,
-                content: content
+                titleEdit: titleEdit,
+                contentEdit: contentEdit
               }
             )
           this.$parent.flash_message = "保存しました。"
-          this.content = ''
-          this.title = ''
+          this.contentEdit = ''
+          this.titleEdit = ''
           setTimeout(this.clearMessage,3000),
 
           firebase
@@ -229,8 +226,12 @@ export default {
 
       },
 
-    copyHashtag(content) {
-      this.$copyText(this.content)
+    //コピーなぜか効かないので一旦むし
+    copyHashtagEdit(contentEdit) {
+      //this.$copyText(this.contentEdit)
+      this.$copyText("Hello World")
+      console.log(this.contentEdit)
+      console.log('コピーしようとしています')
       this.$parent.flash_message = "コピーしました"
       setTimeout(this.clearMessage,3000)
     },
