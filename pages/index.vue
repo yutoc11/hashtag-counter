@@ -1,26 +1,28 @@
 <template lang="pug">
   section.section
 
-    v-layout.edit_modal(justify-center)
-      v-dialog(v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition")
-        template(v-slot:activator="{ on }")
-          v-btn(color="primary" dark v-on="on") Open Dialog
-        v-card
-          v-toolbar(dark color="white")
-            v-btn(color="pink darken-2" icon dark @click="dialog = false")
-              v-icon close
-            v-toolbar-title.grey--text Hashtagsetの編集
-            v-spacer
-            v-toolbar-items
-              v-btn.white--text.font-weight-bold(color="pink darken-2" text @click="dialog = false") 更新する
+    //-編集機能レイアウト作ったけどうまく行かないので一旦廃止
+      v-layout.edit_modal(justify-center)
+        v-dialog(v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition")
+          template(v-slot:activator="{ on }")
+            v-btn(small round fab depressed @click="editHashtagset(key)" v-on="on")
+              v-icon(small) edit
+          v-card.hashtag_edit_modal(v-bind:class="{ active: isActive}")
+            v-toolbar(dark color="white")
+              v-btn(color="pink darken-2" icon dark @click="dialog = false")
+                v-icon close
+              v-toolbar-title.grey--text Hashtagsetの編集
+              v-spacer
+              v-toolbar-items
+                v-btn.white--text.font-weight-bold(color="pink darken-2" text @click="dialog = false") 更新する
 
-          hashtag-edit
+            hashtag-edit
 
-          v-divider
+            v-divider
 
 
     v-layout(justify-center v-if="flash_message")
-      .flash_message_area
+      .flash_message_area(v-bind:style="styleObject")
         v-alert.caption.px-3.py-2.my-3(
           outline
           :value="true"
@@ -57,8 +59,9 @@
                 v-icon(
                   small
                   ) delete
-              v-btn(small round fab depressed @click="editHashtagset(key)")
-                v-icon(small) edit
+              //-編集機能はうまく行かないので一旦廃止
+                v-btn(small round fab depressed @click="editHashtagset(key)")
+                  v-icon(small) edit
               v-btn(small round fab depressed)
                 v-icon(small) file_copy
 
@@ -98,6 +101,12 @@ export default {
       notifications: false,
       sound: true,
       widgets: false,
+      styleObject: {
+        overflow: 'initial',
+      },
+      titleEdit: '',
+      contentEdit: '',
+      isActive: false,
     };
   },
 
@@ -193,9 +202,21 @@ export default {
     },
 
     editHashtagset(key){
-      firebase.database().ref('hashtagsets/' + this.user.uid + '/' + key)
-      console.log(hashtagset.title)
-      console.log(hashtagset.content)
+      var edithashtag
+      var database = firebase.database();
+      database
+      .ref('hashtagsets/' + this.user.uid + '/' + key)
+      .once('value')
+      .then(result => {
+        this.edithashtag = result.val();
+        this.titleEdit = this.edithashtag.title
+        this.contentEdit = this.edithashtag.content
+        console.log(this.edithashtag)
+        console.log(this.titleEdit)
+        console.log(this.contentEdit)
+
+      })
+      //console.log(firebase.database().ref('hashtagsets/' + this.user.uid + '/' + key))
     },
   }
 }
@@ -203,12 +224,21 @@ export default {
 
 <style lang="scss">
 
+.active{
+  display: block;
+}
+
+.hashtag_edit_modal{
+  display:none;
+}
+
 .flash_message_area{
   position: absolute;
   top:0px;
   margin:0 auto;
   z-index: 1000;
   max-width: 250px;
+  overflow: initial;
 }
 
 .section{
