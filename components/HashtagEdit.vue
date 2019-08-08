@@ -31,7 +31,7 @@
         v-textarea(
           id="hashtag_edit"
           ref="r"
-          label="ハッシュタグまとめを編集してください。"
+          label="ハッシュタグまとめの編集"
           v-model="contentEdit"
           @input="updateValueEdit"
           maxlength="500"

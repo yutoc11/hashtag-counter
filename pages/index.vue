@@ -107,6 +107,7 @@ export default {
       titleEdit: '',
       contentEdit: '',
       isActive: false,
+      editNow: 'none',
     };
   },
 
@@ -216,7 +217,10 @@ export default {
         console.log(this.contentEdit)
 
       })
-      //console.log(firebase.database().ref('hashtagsets/' + this.user.uid + '/' + key))
+      console.log(firebase.database().ref('hashtagsets/' + this.user.uid + '/' + key))
+      console.log(this.titleEdit)
+      console.log(this.contentEdit)
+      this.editNow = 'flex';
     },
   }
 }
