@@ -63,7 +63,7 @@
                 v-btn(small round fab depressed @click="editHashtagset(key)")
                   v-icon(small) edit
               v-btn(small round fab depressed)
-                v-icon(small) file_copy
+                v-icon(small @click="copyHashtagset(hashtagset.content)") file_copy
 
 
 
@@ -223,6 +223,13 @@ export default {
       console.log(this.titleEdit)
       console.log(this.contentEdit)
       this.editNow = 'flex';
+    },
+
+
+    copyHashtagset(content) {
+      this.$copyText(content)
+      this.flash_message = "コピーしました"
+      setTimeout(this.clearMessage,3000)
     },
   }
 }

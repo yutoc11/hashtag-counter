@@ -230,7 +230,7 @@ export default {
       },
 
     copyHashtag(content) {
-      this.$copyText(this.content)
+      this.$copyText(content)
       this.$parent.flash_message = "コピーしました"
       setTimeout(this.clearMessage,3000)
     },
