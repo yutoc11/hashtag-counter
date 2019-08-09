@@ -7,7 +7,7 @@
       v-toolbar-title.pt-1.px-0
         nuxt-link.white--text.font-weight-bold(to="/") #カウンター
       v-spacer
-      v-toolbar-items(v-if="this.user.uid")
+      v-toolbar-items(v-if="isAuthenticated")
         v-btn(flat)
           //nuxt-link.white--text.font-weight-bold(:to="mypageUrl") マイページ
           nuxt-link.white--text.font-weight-bold(to="/login") マイページ
@@ -65,6 +65,7 @@ export default {
 
   computed: {
     ...mapState(['user']),
+    ...mapGetters(['isAuthenticated']),
 
     ...mapState({
       mypageUrl: (state) => `/user/${state.user.uid}`

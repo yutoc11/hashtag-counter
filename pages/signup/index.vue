@@ -10,13 +10,13 @@
         outline
         round
         color="#dd4b39"
-        @click="googleLogin") Googleアカウントでログイン
+        @click="googleLogin") Googleアカウントで新規登録
     v-container.my-0.py-2(text-xs-center fluid)
       v-btn.mx-3.my-0.font-weight-bold(
         outline
         round
         color="#55acee"
-        @click="twitterLogin") Twitterアカウントでログイン
+        @click="twitterLogin") Twitterアカウントで新規登録
 
     v-container
       mail-password-form(
@@ -50,30 +50,24 @@ export default {
     }
   },
 
-  mounted: function () {
+  created: function(){
     firebase.auth().onAuthStateChanged((user)=> {
       var user = firebase.auth().currentUser;
         if (user) {
-
+          this.setUser(user)
           this.user = user
-
-          this.isLogin = true
-          console.log(this)
           console.log(user)
-          this.userData = user
-          this.$store.commit('login', this.userData)
-
           this.$router.push("/")
-
-        } else {
-          this.isLogin = false
-          this.userData = null
-        };
+        }
     })
+  },
+
+  mounted: function () {
   },
 
   methods: {
     ...mapActions(['setUser']),
+    ...mapGetters(['isAuthenticated']),
 
     googleLogin () {
       const provider = new firebase.auth.GoogleAuthProvider()

@@ -52,33 +52,26 @@ export default {
     }
   },
 
-  mounted: function () {
-    console.log( this.$route.path )
-    console.log( this.$route.name )
+  computed: {
+    ...mapState(['user']),
+    ...mapGetters(['isAuthenticated'])
+  },
 
+  created: function(){
     firebase.auth().onAuthStateChanged((user)=> {
       var user = firebase.auth().currentUser;
         if (user) {
-
+          this.setUser(user)
           this.user = user
-
-          this.isLogin = true
-          console.log(this)
           console.log(user)
-          this.userData = user
-          this.$store.commit('login', this.userData)
-
           this.$router.push("/")
-
-        } else {
-          this.isLogin = false
-          this.userData = null
-        };
+        }
     })
   },
 
   methods: {
     ...mapActions(['setUser']),
+    ...mapGetters(['isAuthenticated']),
 
     googleLogin () {
       const provider = new firebase.auth.GoogleAuthProvider()

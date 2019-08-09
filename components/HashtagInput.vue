@@ -1,4 +1,3 @@
-<!-- うまくいかないから一旦index.vueに直接入れてる -->
 <template lang="pug">
   v-layout(justify-center)
     v-flex(xs12 md8)

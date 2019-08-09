@@ -21,29 +21,39 @@
             v-divider
 
 
-    v-layout(justify-center v-if="flash_message")
+    v-layout(justify-center v-if="flash_message" )
       .flash_message_area(v-bind:style="styleObject")
         v-alert.caption.px-3.py-2.my-3(
           outline
           :value="true"
           v-model="alert"
           type="success"
+          @invalid_access="invalidAccess"
           ) {{ flash_message }}
 
-    nuxt-link(v-if="this.user.uid" :to="mypageUrl") マイページ
+    nuxt-link(v-if="isAuthenticated" :to="mypageUrl") マイページ
 
     hashtag-input
 
     v-divider
 
-    p {{ user.uid }}
+    p this.user.uid： {{ this.user.uid }}
+
+    p(v-if="isAuthenticated")
+     | $store.state.user.uid： {{ $store.state.user.uid }}
+     br
+     | $store.state.user.displayName： {{ $store.state.user.displayName }}
+     br
+     | $store.state.user.email： {{ $store.state.user.email }}
+     br
+     | isAuthenticated： {{ isAuthenticated }}
 
     v-container
       h2.headline.text-xs-center.font-weight-thin
         | My hashtag set
 
     //保存されたハッシュタグセットもゆくゆくはコンポーネント化
-    v-layout(justify-center v-if="this.user.uid")
+    v-layout(justify-center v-if="isAuthenticated")
       v-container.text-xs-center(justify-center v-if='hashtagsets == ""')
         h3.head ハッシュタグを保存すると、コピーや編集ができるようになります。
 
@@ -68,7 +78,7 @@
 
 
     v-container.text-xs-center(justify-center v-else)
-      h3.head ログインをすると、ハッシュタグが保存できるようになります。
+      h3.head 登録してログインをすると、ハッシュタグが保存できるようになります。
       nuxt-link(to="/signup")
         v-btn.my-3.white--text.font-weight-bold(
           outline
@@ -137,39 +147,13 @@ export default {
 
   created: function(){
     firebase.auth().onAuthStateChanged((user)=> {
-      var user = firebase.auth().currentUser; // eslint-disable-line
+      var user = firebase.auth().currentUser;
         if (user) {
-
+          this.setUser(user)
           this.user = user
-
-          this.isLogin = true
-          console.log('親コンポーネントのbeforeCreateの処理を開始しました')
-          console.log(this)
           console.log(user)
-          this.userData = user
-          this.$store.commit('login', this.userData)
-
-          //var hashtagSetCountRef = firebase.database().ref('hashtagsets/' + this.user.uid);
-          //hashtagSetCountRef.on('value', function(snapshot) {
-          //  this.hashtagsets = snapshot.val();
-          //  console.log('なんか動いている？')
-          //});
-
-          firebase
-          .database()
-          .ref('hashtagsets/' + this.user.uid)
-          .once('value')
-          .then(result => {
-            if (result.val()) {
-              this.hashtagsets = result.val();
-              console.log(this.hashtagsets)
-              console.log('こっちは動いているよね？')
-            }
-          })
-        } else {
-          this.isLogin = false
-          this.userData = null
-        };
+          this.$router.push("/")
+        }
     })
   },
 
@@ -231,6 +215,11 @@ export default {
       this.flash_message = "コピーしました"
       setTimeout(this.clearMessage,3000)
     },
+
+    invalidAccess(){
+      this.flash_message = "ログインしてください"
+      setTimeout(this.clearMessage,3000)
+    }
   }
 }
 </script>

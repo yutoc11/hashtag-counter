@@ -11,8 +11,10 @@
               v-text-field(prepend-icon="lock" name="password_confirm" label="パスワード確認用" type="password")
               v-card-actions
                 v-btn(primary block round @click="changeProfile") 変更する（まだできない）
-
-    v-btn.my-3(primary round @click="deleteUser")  退会する
+    v-layout.mb-5.text-xs-center(justify-end)
+      v-btn.my-3.white--text.font-weight-bold(outline color='red' primary round @click="logOut")  ログアウト
+    v-layout.mt-5.text-xs-center(justify-stard)
+      v-btn.my-3.white--text.font-weight-bold(outline color='grey' round @click="deleteUser")  退会する
 
 </template>
 
@@ -49,27 +51,17 @@ export default {
     ...mapGetters(['isAuthenticated']),
   },
 
-  beforeCreate: function(){
+  created: function(){
     firebase.auth().onAuthStateChanged((user)=> {
       var user = firebase.auth().currentUser;
         if (user) {
-
+          this.setUser(user)
           this.user = user
-
-          this.isLogin = true
-          console.log(this)
           console.log(user)
-          this.userData = user
-          this.$store.commit('login', this.userData)
-        } else {
-          this.isLogin = false
-          this.userData = null
-        };
+        }else{
+          this.$router.push("/")
+        }
     })
-  },
-
-  created: function(){
-
   },
 
   mounted: function () {
@@ -78,7 +70,11 @@ export default {
   methods: {
     ...mapActions(['setUser']),
 
-
+    logOut(){
+      firebase.auth().signOut()
+      this.setUser(null)
+      this.$router.push("/")
+    },
 
     deleteUser(){
       var user = firebase.auth().currentUser;
@@ -87,6 +83,7 @@ export default {
         }).catch(function(error) {
           // An error happened.
           });
+      this.setUser(null)
       this.$router.push("/")
       }
   }
