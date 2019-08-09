@@ -198,6 +198,8 @@ export default {
       .then(result => {
         if (result.val()) {
           this.hashtagsets = result.val();
+        }else{
+          this.hashtagsets = ""
         }
       })
     },
