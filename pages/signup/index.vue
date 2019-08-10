@@ -28,9 +28,7 @@
 
 <script>
 import { mapActions, mapState, mapGetters } from 'vuex'
-
 import MailPasswordForm from '~/components/MailPasswordForm'
-
 import firebase from '@/plugins/firebase'
 
 export default {
@@ -57,7 +55,7 @@ export default {
           this.setUser(user)
           this.user = user
           console.log(user)
-          this.$router.push("/")
+          this.$router.push('/?flash=signup')
         }
     })
   },
