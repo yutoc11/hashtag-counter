@@ -78,6 +78,17 @@ export default {
       });
     },
 
+    twitterLogin () {
+      const provider = new firebase.auth.TwitterAuthProvider()
+      firebase.auth().signInWithRedirect(provider)
+      .then(user => {
+        // ログインしたら飛ぶページを指定　したいけど動いてない
+        this.$router.push("/")
+      }).catch((error) => {
+        alert(error)
+      });
+    },
+
     // コンポーネントの方にかく？うまくいっていない
     emailSignup() {
       firebase.auth().createUserWithEmailAndPassword(this.email, this.password)
