@@ -1,22 +1,7 @@
 <template lang="pug">
   section.section
 
-    v-container
-      h2.headline.text-xs-center.font-weight-thin
-        | SNSアカウントで{{ login_or_signup }}
-
-    v-container.my-0.py-2(text-xs-center fluid)
-      v-btn.mx-3.my-0.font-weight-bold(
-        outline
-        round
-        color="#dd4b39"
-        @click="googleLogin") Googleアカウントで新規登録
-    v-container.my-0.py-2(text-xs-center fluid)
-      v-btn.mx-3.my-0.font-weight-bold(
-        outline
-        round
-        color="#55acee"
-        @click="twitterLogin") Twitterアカウントで新規登録
+    sns-connect(:login_or_signup="login_or_signup")
 
     v-container
       mail-password-form(
@@ -27,15 +12,19 @@
 </template>
 
 <script>
-import { mapActions, mapState, mapGetters } from 'vuex'
+import SnsConnect from '~/components/SnsConnect'
 import MailPasswordForm from '~/components/MailPasswordForm'
+
 import firebase from '@/plugins/firebase'
+import { mapActions, mapState, mapGetters } from 'vuex'
+import store from '~/store/index.js'
 
 export default {
   email: '',
   password: '',
 
   components: {
+    SnsConnect,
     MailPasswordForm
   },
 
@@ -67,28 +56,6 @@ export default {
     ...mapActions(['setUser']),
     ...mapGetters(['isAuthenticated']),
 
-    googleLogin () {
-      const provider = new firebase.auth.GoogleAuthProvider()
-      firebase.auth().signInWithRedirect(provider)
-      .then(user => {
-        // ログインしたら飛ぶページを指定　したいけど動いてない
-        this.$router.push("/")
-      }).catch((error) => {
-        alert(error)
-      });
-    },
-
-    twitterLogin () {
-      const provider = new firebase.auth.TwitterAuthProvider()
-      firebase.auth().signInWithRedirect(provider)
-      .then(user => {
-        // ログインしたら飛ぶページを指定　したいけど動いてない
-        this.$router.push("/")
-      }).catch((error) => {
-        alert(error)
-      });
-    },
-
     // コンポーネントの方にかく？うまくいっていない
     emailSignup() {
       firebase.auth().createUserWithEmailAndPassword(this.email, this.password)
@@ -99,11 +66,6 @@ export default {
         alert(error)
       });
     },
-
-    logOut () {
-      firebase.auth().signOut()
-      this.$router.push("/")
-    }
   }
 }
 </script>
