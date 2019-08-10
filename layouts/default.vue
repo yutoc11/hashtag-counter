@@ -9,8 +9,7 @@
       v-spacer
       v-toolbar-items(v-if="isAuthenticated")
         v-btn(flat)
-          //nuxt-link.white--text.font-weight-bold(:to="mypageUrl") マイページ
-          nuxt-link.white--text.font-weight-bold(to="/login") マイページ
+          nuxt-link.white--text.font-weight-bold(:to="mypageUrl") マイページ
       v-toolbar-items(v-else)
         v-btn(flat)
           nuxt-link.white--text.font-weight-bold(to="/login") ログイン
@@ -41,19 +40,6 @@ import { mapActions, mapState, mapGetters } from 'vuex'
 export default {
   data() {
     return {
-      user: [],
-      items: [
-        {
-          title: 'Home',
-          icon: 'home',
-          to: { name: 'index' }
-        },
-        {
-          title: 'Inspire',
-          icon: 'lightbulb',
-          to: { name: 'inspire' }
-        }
-      ]
     }
   },
 
@@ -64,6 +50,7 @@ export default {
   },
 
   computed: {
+
     ...mapState(['user']),
     ...mapGetters(['isAuthenticated']),
 
@@ -72,25 +59,7 @@ export default {
     }),
   },
 
-  beforeCreate: function(){
-    firebase.auth().onAuthStateChanged((user)=> {
-      var user = firebase.auth().currentUser; // eslint-disable-line
-        if (user) {
 
-          this.user = user
-
-          this.isLogin = true
-          console.log(this)
-          console.log(user)
-          this.userData = user
-          this.$store.commit('login', this.userData)
-
-        } else {
-          this.isLogin = false
-          this.userData = null
-        };
-    })
-  },
 }
 </script>
 
