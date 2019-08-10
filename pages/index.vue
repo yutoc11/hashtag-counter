@@ -92,7 +92,6 @@
 <script>
 import HashtagInput from '~/components/HashtagInput'
 import HashtagEdit from '~/components/HashtagEdit'
-//import MyHashtag from '~/components/MyHashtagSet'
 
 import firebase from '@/plugins/firebase'
 import store from '~/store/index.js'
@@ -122,7 +121,7 @@ export default {
   },
 
   asyncData(context) {
-    return {      
+    return {
       flash: context.query['flash'],
       user: [],
       hashtagsets: [],
@@ -132,7 +131,6 @@ export default {
   components: {
     HashtagInput,
     HashtagEdit,
-    //MyHashtagSet
   },
 
   computed: {
