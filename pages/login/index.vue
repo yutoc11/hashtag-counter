@@ -1,22 +1,7 @@
 <template lang="pug">
   section.section
 
-    v-container
-      h2.headline.text-xs-center.font-weight-thin
-        | SNSアカウントで{{ login_or_signup }}
-
-    v-container.my-0.py-2(text-xs-center fluid)
-      v-btn.mx-3.my-0.font-weight-bold(
-        outline
-        round
-        color="#dd4b39"
-        @click="googleLogin") Googleアカウントでログイン
-    v-container.my-0.py-2(text-xs-center fluid)
-      v-btn.mx-3.my-0.font-weight-bold(
-        outline
-        round
-        color="#55acee"
-        @click="twitterLogin") Twitterアカウントでログイン
+    sns-connect(:login_or_signup="login_or_signup")
 
     v-container
       mail-password-form(
@@ -28,6 +13,7 @@
 
 <script>
 
+import SnsConnect from '~/components/SnsConnect'
 import MailPasswordForm from '~/components/MailPasswordForm'
 
 import firebase from '@/plugins/firebase'
@@ -37,7 +23,8 @@ import { mapActions, mapState, mapGetters } from 'vuex'
 export default {
 
   components: {
-    MailPasswordForm
+    MailPasswordForm,
+    SnsConnect
   },
 
   asyncData () {
@@ -72,28 +59,6 @@ export default {
   methods: {
     ...mapActions(['setUser']),
     ...mapGetters(['isAuthenticated']),
-
-    googleLogin () {
-      const provider = new firebase.auth.GoogleAuthProvider()
-      firebase.auth().signInWithRedirect(provider)
-      .then(user => {
-        // ログインしたら飛ぶページを指定　したいけど動いてない
-        this.$router.push("/")
-      }).catch((error) => {
-        alert(error)
-      });
-    },
-
-    twitterLogin () {
-      const provider = new firebase.auth.TwitterAuthProvider()
-      firebase.auth().signInWithRedirect(provider)
-      .then(user => {
-        // ログインしたら飛ぶページを指定　したいけど動いてない
-        this.$router.push("/")
-      }).catch((error) => {
-        alert(error)
-      });
-    },
 
     // コンポーネントの方にかく？うまくいっていない
     emailLogin() {
