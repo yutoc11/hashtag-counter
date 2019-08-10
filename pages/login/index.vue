@@ -64,7 +64,7 @@ export default {
           this.setUser(user)
           this.user = user
           console.log(user)
-          this.$router.push("/")
+          this.$router.push('/?flash=login')
         }
     })
   },

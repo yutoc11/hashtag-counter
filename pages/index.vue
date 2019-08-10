@@ -23,7 +23,7 @@
 
     v-layout(justify-center v-if="flash_message" )
       .flash_message_area(v-bind:style="styleObject")
-        v-alert.caption.px-3.py-2.my-3(
+        v-alert.caption.px-3.py-2.mt-2(
           outline
           :value="true"
           v-model="alert"
@@ -121,10 +121,13 @@ export default {
     };
   },
 
-  asyncData () {
+  asyncData(context) {
     return {
+      //signup: context.query['signup'],
+      //login: context.query['login'],
+      flash: context.query['flash'],
       user: [],
-      hashtagsets: []
+      hashtagsets: [],
     }
   },
 
@@ -158,6 +161,40 @@ export default {
   },
 
   mounted: function () {
+
+
+    //ログインやログアウト時など、ユーザーの状態が変わった時のフラッシュメッセージ
+    var flash = this.flash
+    switch( flash ){
+
+      case 'login':
+        this.flash_message = "ログインしました！"
+        console.log('今はlogin')
+        setTimeout(this.clearMessage,3000),
+        this.flash = false
+        break;
+
+      case 'signup':
+        this.flash_message = "ご登録ありがとうございます！"
+        console.log('今はsignup')
+        setTimeout(this.clearMessage,3000),
+        this.flash = false
+        break;
+
+      case 'logout':
+        this.flash_message = "ログアウトしました！"
+        console.log('今はログアウト')
+        setTimeout(this.clearMessage,3000),
+        this.flash = false
+        break;
+
+      case 'delete':
+        this.flash_message = "退会しました。またのご利用をお待ちしております。"
+        console.log('今は退会')
+        setTimeout(this.clearMessage,3000),
+        this.flash = false
+        break;
+    }
 
   },
 

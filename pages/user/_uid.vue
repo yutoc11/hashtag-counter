@@ -59,6 +59,7 @@ export default {
           this.user = user
           console.log(user)
         }else{
+          this.setUser(null)
           this.$router.push("/")
         }
     })
@@ -73,7 +74,7 @@ export default {
     logOut(){
       firebase.auth().signOut()
       this.setUser(null)
-      this.$router.push("/")
+      this.$router.push('/?flash=logout')
     },
 
     deleteUser(){
@@ -83,8 +84,7 @@ export default {
         }).catch(function(error) {
           // An error happened.
           });
-      this.setUser(null)
-      this.$router.push("/")
+      this.$router.push('/?flash=delete')
       }
   }
 }
