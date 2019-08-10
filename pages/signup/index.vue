@@ -3,12 +3,9 @@
 
     sns-connect(:login_or_signup="login_or_signup")
 
-    v-container
-      mail-password-form(
-        :login_or_signup="login_or_signup"
-        @emailpass-click-signup="emailSignup")
-
-    v-divider
+    mail-password-form(
+      :login_or_signup="login_or_signup"
+      @emailpass-click-signup="emailSignup")
 </template>
 
 <script>
@@ -16,12 +13,10 @@ import SnsConnect from '~/components/SnsConnect'
 import MailPasswordForm from '~/components/MailPasswordForm'
 
 import firebase from '@/plugins/firebase'
-import { mapActions, mapState, mapGetters } from 'vuex'
 import store from '~/store/index.js'
+import { mapActions, mapState, mapGetters } from 'vuex'
 
 export default {
-  email: '',
-  password: '',
 
   components: {
     SnsConnect,
@@ -33,7 +28,9 @@ export default {
       login_or_signup: '新規登録',
       isWaiting: true,
       isLogin: false,
-      user: []
+      user: [],
+      email: '',
+      password: '',
     }
   },
 
@@ -56,7 +53,6 @@ export default {
     ...mapActions(['setUser']),
     ...mapGetters(['isAuthenticated']),
 
-    // コンポーネントの方にかく？うまくいっていない
     emailSignup() {
       firebase.auth().createUserWithEmailAndPassword(this.email, this.password)
       .then(user => {

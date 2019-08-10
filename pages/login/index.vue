@@ -3,16 +3,12 @@
 
     sns-connect(:login_or_signup="login_or_signup")
 
-    v-container
-      mail-password-form(
-        :login_or_signup="login_or_signup"
-        @emailpass-click-login="emailLogin")
-
-    v-divider
+    mail-password-form(
+      :login_or_signup="login_or_signup"
+      @emailpass-click-login="emailLogin")
 </template>
 
 <script>
-
 import SnsConnect from '~/components/SnsConnect'
 import MailPasswordForm from '~/components/MailPasswordForm'
 
@@ -60,7 +56,6 @@ export default {
     ...mapActions(['setUser']),
     ...mapGetters(['isAuthenticated']),
 
-    // コンポーネントの方にかく？うまくいっていない
     emailLogin() {
       firebase.auth().signInWithEmailAndPassword(this.email, this.password)
       .then(user => {
