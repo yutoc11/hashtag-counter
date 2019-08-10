@@ -122,9 +122,7 @@ export default {
   },
 
   asyncData(context) {
-    return {
-      //signup: context.query['signup'],
-      //login: context.query['login'],
+    return {      
       flash: context.query['flash'],
       user: [],
       hashtagsets: [],
