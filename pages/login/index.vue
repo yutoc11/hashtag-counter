@@ -28,7 +28,6 @@ export default {
       login_or_signup: 'ログイン',
       isWaiting: true,
       isLogin: false,
-      user: [],
       email: '',
       password: '',
       login_data: [],
@@ -54,7 +53,6 @@ export default {
 
   methods: {
     ...mapActions(['setUser']),
-    ...mapGetters(['isAuthenticated']),
 
     emailLogin() {
       firebase.auth().signInWithEmailAndPassword(this.email, this.password)

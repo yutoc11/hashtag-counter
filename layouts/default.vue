@@ -2,7 +2,6 @@
   v-app
 
     v-toolbar.white--text(color="pink darken-2")
-      app
       //v-toolbar-side-icon.white--text
       v-toolbar-title.pt-1.px-0
         nuxt-link.white--text.font-weight-bold(to="/") #カウンター
@@ -21,7 +20,6 @@
         nuxt/
 
     v-footer.white--text(color="pink darken-2")
-      app
       v-flex.font-weight-bold(
         color="pink darken-2"
         lighten-2
