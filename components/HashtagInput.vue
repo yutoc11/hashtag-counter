@@ -199,6 +199,7 @@ export default {
           // 保存したタイミングで入力内容をクリア
           this.content = ''
           this.title = ''
+          this.now_hashtag_count = 0
 
           // 3秒後にフラッシュメッセージは閉じる
           setTimeout(this.clearMessage,3000),
