@@ -44,14 +44,13 @@ export default {
       var user = firebase.auth().currentUser;
         if (user) {
           this.setUser(user)
-          this.user = user
-          console.log(user)
           this.$router.push('/?flash=login')
         }
     })
   },
 
   methods: {
+
     ...mapActions(['setUser']),
 
     emailLogin() {

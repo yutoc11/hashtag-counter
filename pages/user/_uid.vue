@@ -54,7 +54,6 @@ export default {
       var user = firebase.auth().currentUser;
         if (user) {
           this.setUser(user)
-          this.user = user
         }
     })
   },
