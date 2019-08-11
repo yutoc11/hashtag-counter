@@ -31,8 +31,6 @@
           @invalid_access="invalidAccess"
           ) {{ flash_message }}
 
-    nuxt-link(v-if="isAuthenticated" :to="mypageUrl") マイページ
-
     hashtag-input
 
     v-divider
@@ -143,13 +141,10 @@ export default {
 
   created: function(){
     firebase.auth().onAuthStateChanged((user)=> {
-      var user = firebase.auth().currentUser;
-        if (user) {
-          this.setUser(user)
-          this.user = user
-          console.log(user)
-          this.$router.push("/")
-        }
+      if (user) {
+        this.setUser(user)
+        this.$router.push("/")
+      }
     })
   },
 

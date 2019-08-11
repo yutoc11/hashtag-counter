@@ -36,13 +36,10 @@ export default {
 
   created: function(){
     firebase.auth().onAuthStateChanged((user)=> {
-      var user = firebase.auth().currentUser;
-        if (user) {
-          this.setUser(user)
-          this.user = user
-          console.log(user)
-          this.$router.push('/?flash=signup')
-        }
+      if (user) {
+        this.setUser(user)
+        this.$router.push('/?flash=signup')
+      }
     })
   },
 
