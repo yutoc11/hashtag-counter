@@ -86,14 +86,21 @@ export default {
 
   computed: {
 
+    ...mapState(['user']),
+    ...mapGetters(['isAuthenticated']),
+
+    //入力内容を監視する
     content(){
-      console.log('computedメッセージが変更されました')
     },
   },
 
   methods: {
 
+    ...mapActions(['setUser']),
+
+    // 入力内容が1文字変わる度に、ハッシュタグの数を数える
     updateValue(){
+
       var input_text = this.content
       var hashtag_count = input_text.match(/#\S/g)
       if(hashtag_count){
@@ -105,142 +112,140 @@ export default {
       }
     },
 
+    // #をワンタップで追加する
     addHashtag(content) {
 
-      console.log('#を追加したいボタンたっぷ')
-
       var text_val = this.content
-      console.log(text_val)
-
       var all_len = text_val.length
-      console.log(all_len)
-
-      var select_len  = hashtag_input.selectionStart
-      console.log(select_len)
-
-      var first   = text_val.substr(0, select_len)
-      var insert     = '#'
-      console.log(insert)
-
-      var latter    = text_val.substr(select_len, all_len)
+      var select_len = hashtag_input.selectionStart
+      var first = text_val.substr(0, select_len)
+      var insert = '#'
+      var latter = text_val.substr(select_len, all_len)
       text_val = first + insert + latter
-      console.log(text_val)
 
       this.content = text_val
 
       this.$nextTick(() =>
         this.$refs.r.focus(),
-        console.log('フォーカスなう'),
         // セレクションレンジが効かない
         // this.$refs.r.setSelectionRange(5, 10),
         // console.log('セレクションレンジ'),
       )
-
     },
 
+    // 半角スペースをワンタップで追加する
     addSpace(content) {
 
-      console.log('#を追加したいボタンたっぷ')
-
       var text_val = this.content
-      console.log(text_val)
-
       var all_len = text_val.length
-      console.log(all_len)
-
       var select_len  = hashtag_input.selectionStart
-      console.log(select_len)
-
       var first   = text_val.substr(0, select_len)
       var insert     = ' '
-      console.log(insert)
-
       var latter    = text_val.substr(select_len, all_len)
       text_val = first + insert + latter
-      console.log(text_val)
 
       this.content = text_val
 
       this.$nextTick(() =>
         this.$refs.r.focus(),
-        console.log('フォーカスなう'),
         // セレクションレンジが効かない
         // this.$refs.r.setSelectionRange(5, 10),
         // console.log('セレクションレンジ'),
       )
-
     },
 
+    // ふらっッシュメッセージの内容をクリアする
     clearMessage(){
+
       this.$parent.flash_message = ""
+
     },
 
+    // 入力内容をクリアする
     clearHashtag(content) {
-      console.log('コンポーネントのクリアをしようとしています'),
+
       this.content = ''
       this.$refs.r.focus()
       this.$parent.flash_message = "入力内容をクリアしました"
       setTimeout(this.clearMessage,3000)
+
     },
 
+    // ホームへ遷移する
     redirectToHome(){
+
       this.$router.push("/");
+
     },
 
+    // ハッシュタグセットを保存する
     saveHashtag(title,content) {
-      if(this.$parent.user.uid){
+
+      if(this.isAuthenticated){
+
         if( title && content){
+
           // 新しいテキストのためのキーを取得
           var newHashtagKey = firebase.database().ref().child('hashtagsets').push().key;
           firebase
             .database()
-            .ref('hashtagsets/' + this.$parent.user.uid　+ '/' + newHashtagKey)
+            .ref('hashtagsets/' + this.user.uid+ '/' + newHashtagKey)
             .set(
               {
                 title: title,
                 content: content
               }
             )
+
           this.$parent.flash_message = "保存しました。"
+
+          // 保存したタイミングで入力内容をクリア
           this.content = ''
           this.title = ''
+
+          // 3秒後にフラッシュメッセージは閉じる
           setTimeout(this.clearMessage,3000),
 
+          // 保存した後に改めて１回、保存されているハッシュタグセットを読み込む
           firebase
           .database()
           .ref('hashtagsets/' + this.$parent.user.uid)
           .once('value')
           .then(result => {
             if (result.val()) {
+
               this.$parent.hashtagsets = result.val();
-              console.log(this.$parent.hashtagsets)
+
             }
           })
+
           }else{
+
             this.$parent.flash_message = "タイトルとコンテンツはどちらも入力してください"
             setTimeout(this.clearMessage,3000)
+
           }
+
       }else{
-        //とりあえずフラッシュ
+
         this.$parent.flash_message = "保存はログインユーザー限定の機能です。"
         setTimeout(this.clearMessage,3000)
+
       }
+    },
 
-      },
-
+    // 入力内容をコピーする
     copyHashtag(content) {
+
       this.$copyText(content)
       this.$parent.flash_message = "コピーしました"
       setTimeout(this.clearMessage,3000)
+
     },
   },
 }
 </script>
 <style>
-
-.add_hashtag{
-
-}
 
 .v-text-field.v-text-field--enclosed .v-text-field__details{
   margin-bottom:0;

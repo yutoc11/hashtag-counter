@@ -1,3 +1,4 @@
+<!-- 2019/8/10現在は未使用 -->
 <template lang="pug">
   v-layout(justify-center)
     v-btn(small round fab depressed @click.stop="dialog = true")

@@ -1,4 +1,4 @@
-<!-- うまくいかないから一旦index.vueに直接入れてる -->
+<!-- 2019/8/10現在は未使用 -->
 <template lang="pug">
   v-layout.mt-5(justify-center)
     v-flex(xs10 md8)

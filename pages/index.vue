@@ -20,7 +20,7 @@
 
             v-divider
 
-
+    //フラッシュメッセージ
     v-layout(justify-center v-if="flash_message" )
       .flash_message_area(v-bind:style="styleObject")
         v-alert.caption.px-3.py-2.mt-2(
@@ -36,17 +36,6 @@
     hashtag-input
 
     v-divider
-
-    p this.user.uid： {{ this.user.uid }}
-
-    p(v-if="isAuthenticated")
-     | $store.state.user.uid： {{ $store.state.user.uid }}
-     br
-     | $store.state.user.displayName： {{ $store.state.user.displayName }}
-     br
-     | $store.state.user.email： {{ $store.state.user.email }}
-     br
-     | isAuthenticated： {{ isAuthenticated }}
 
     v-container
       h2.headline.text-xs-center.font-weight-thin
@@ -75,8 +64,6 @@
               v-btn(small round fab depressed)
                 v-icon(small @click="copyHashtagset(hashtagset.content)") file_copy
 
-
-
     v-container.text-xs-center(justify-center v-else)
       h3.head 登録してログインをすると、ハッシュタグが保存できるようになります。
       nuxt-link(to="/signup")
@@ -86,13 +73,22 @@
           color="pink darken-2"
           )  登録して保存してみる
 
+    //デバッグ用
+    p(v-if="isAuthenticated")
+     | $store.state.user.uid： {{ $store.state.user.uid }}
+     br
+     | $store.state.user.displayName： {{ $store.state.user.displayName }}
+     br
+     | $store.state.user.email： {{ $store.state.user.email }}
+     br
+     | isAuthenticated： {{ isAuthenticated }}
+    p(v-else) ユーザーデータなし
 
 </template>
 
 <script>
 import HashtagInput from '~/components/HashtagInput'
 import HashtagEdit from '~/components/HashtagEdit'
-//import MyHashtag from '~/components/MyHashtagSet'
 
 import firebase from '@/plugins/firebase'
 import store from '~/store/index.js'
@@ -106,6 +102,8 @@ export default {
     return {
       now_hashtag_count:'',
       flash_message: '',
+
+      //ハッシュタグ編集系で使うはずのデータ
       alert: true,
       dialog: false,
       notifications: false,
@@ -123,8 +121,6 @@ export default {
 
   asyncData(context) {
     return {
-      //signup: context.query['signup'],
-      //login: context.query['login'],
       flash: context.query['flash'],
       user: [],
       hashtagsets: [],
@@ -134,7 +130,6 @@ export default {
   components: {
     HashtagInput,
     HashtagEdit,
-    //MyHashtagSet
   },
 
   computed: {
@@ -161,7 +156,6 @@ export default {
   },
 
   mounted: function () {
-
 
     //ログインやログアウト時など、ユーザーの状態が変わった時のフラッシュメッセージ
     var flash = this.flash
@@ -201,17 +195,19 @@ export default {
   methods: {
     ...mapActions(['setUser']),
 
-
+    //フラッシュメッセージを消す
     clearMessage(){
       this.flash_message = ""
     },
 
+    //ハッシュタグセットの削除
     deleteHashtagset(key){
       firebase.database().ref('hashtagsets/' + this.user.uid + '/' + key).remove();
 
       this.flash_message = "このハッシュタグセットを削除しました。"
       setTimeout(this.clearMessage,3000),
 
+      //ハッシュタグセットを削除した上で、改めて保存されているハッシュタグセット読み込み直す
       firebase
       .database()
       .ref('hashtagsets/' + this.user.uid)
@@ -225,6 +221,7 @@ export default {
       })
     },
 
+    //保存されているセットを編集したいが、今の所できていない
     editHashtagset(key){
       var edithashtag
       var database = firebase.database();
@@ -246,13 +243,14 @@ export default {
       this.editNow = 'flex';
     },
 
-
+    //保存されているハッシュタグセットをコピー
     copyHashtagset(content) {
       this.$copyText(content)
       this.flash_message = "コピーしました"
       setTimeout(this.clearMessage,3000)
     },
 
+    //不正なアクセスがあった時のメッセージ
     invalidAccess(){
       this.flash_message = "ログインしてください"
       setTimeout(this.clearMessage,3000)
@@ -271,6 +269,7 @@ export default {
   display:none;
 }
 
+//フラッシュメッセージ
 .flash_message_area{
   position: absolute;
   top:0px;
@@ -289,6 +288,7 @@ export default {
   border-radius: 15px;
 }
 
+//ハッシュタグカウント
 .circle{
   border-radius: 50%;
   width: 50px;
