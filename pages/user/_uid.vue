@@ -51,10 +51,9 @@ export default {
 
   created: function(){
     firebase.auth().onAuthStateChanged((user)=> {
-      var user = firebase.auth().currentUser;
-        if (user) {
-          this.setUser(user)
-        }
+      if (user) {
+        this.setUser(user)
+      }
     })
   },
 

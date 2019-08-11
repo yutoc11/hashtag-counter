@@ -41,8 +41,7 @@ export default {
 
   created: function(){
     firebase.auth().onAuthStateChanged((user)=> {
-      var user = firebase.auth().currentUser;
-        if (user) {
+      if (user) {
           this.setUser(user)
           this.$router.push('/?flash=login')
         }
