@@ -10,7 +10,8 @@
               v-text-field(prepend-icon="lock" name="password" label="現在のパスワード" type="password" :value="password")
               v-text-field(prepend-icon="lock" name="password_confirm" label="パスワード確認用" type="password" :value="password_confirm")
               v-card-actions
-                v-btn(primary block round @click="changeProfile") 変更する（まだできない）
+                //v-btn(primary block round @click="changeProfile") 変更する
+                v-btn(primary block round ) 変更する（まだできない）
     v-layout.mb-5.text-xs-center(justify-end)
       v-btn.my-3.white--text.font-weight-bold(outline color='red' primary round @click="logOut")  ログアウト
     v-layout.mt-5.text-xs-center(justify-stard)
@@ -37,7 +38,6 @@ export default {
 
   asyncData () {
     return {
-      user: [],
     }
   },
 

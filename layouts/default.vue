@@ -57,6 +57,10 @@ export default {
     }),
   },
 
+  methods: {
+    ...mapActions(['setUser']),
+  }
+
 
 }
 </script>
