@@ -96,7 +96,6 @@ import { mapActions, mapState, mapGetters } from 'vuex'
 
 
 export default {
-  name: 'HomePage',
 
   data () {
     return {
@@ -122,7 +121,6 @@ export default {
   asyncData(context) {
     return {
       flash: context.query['flash'],
-      user: [],
       hashtagsets: [],
     }
   },

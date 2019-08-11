@@ -89,9 +89,6 @@ export default {
     ...mapState(['user']),
     ...mapGetters(['isAuthenticated']),
 
-    //入力内容を監視する
-    content(){
-    },
   },
 
   methods: {
