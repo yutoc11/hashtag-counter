@@ -16,8 +16,7 @@
               v-form
                 v-text-field(prepend-icon="person" name="new_email" label="新しいメールアドレス" type="text" v-model="newEmail")
                 v-text-field(prepend-icon="lock" name="current_password_foremail" label="現在のパスワード" type="password" v-model="currentPasswordforEmail")
-                v-card-action
-                  v-btn.my-3.white--text.font-weight-bold(outline color='grey' round @click="updateEmail(newEmail)") メールアドレスを変更する
+                v-btn.my-3.white--text.font-weight-bold(outline color='grey' round @click="updateEmail(newEmail)") メールアドレスを変更する
       //タブ：パスワード
       v-tab-item
         v-layout.text-xs-center(justify-center row)
@@ -29,11 +28,9 @@
                 v-text-field(prepend-icon="lock" name="current_password" label="現在のパスワード" type="password" v-model="currentPassword")
                 v-text-field(prepend-icon="lock" name="new_password" label="新しいパスワード" type="password" v-model="newPassword")
                 v-text-field(prepend-icon="lock" name="new_password_confirm" label="新しいパスワード(確認用)" type="password" v-model="newPasswordConfirm")
-                v-card-action
-                  v-btn.my-3.white--text.font-weight-bold(outline color='grey' round @click="updatePassword(currentPassword,newPassword)") パスワードを変更する
-              v-card-action
-                v-btn(small outline color='grey lighten-1' round)
-                  nuxt-link.grey--text(to="../reset") パスワードを忘れた方はこちら
+                v-btn.my-3.white--text.font-weight-bold(outline color='grey' round @click="updatePassword(currentPassword,newPassword)") パスワードを変更する
+              v-btn(small outline color='grey lighten-1' round)
+                nuxt-link.grey--text(to="../reset") パスワードを忘れた方はこちら
 
     v-layout.mb-5.text-xs-center(justify-end)
       v-btn.my-3.white--text.font-weight-bold(outline color='red' primary round @click="logOut")  ログアウト
