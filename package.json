@@ -25,6 +25,8 @@
     "vuex-persistedstate": "^2.5.4"
   },
   "devDependencies": {
+    "@nuxtjs/manifest": "^3.0.0-beta.16",
+    "@nuxtjs/pwa": "^3.0.0-beta.16",
     "nodemon": "^1.18.9",
     "nuxt-clipboard2": "^0.2.1"
   }

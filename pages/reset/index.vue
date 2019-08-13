@@ -19,6 +19,12 @@ import { mapActions, mapState, mapGetters } from 'vuex'
 
 export default {
 
+  head() {
+    return {
+      title:'リセット'
+    }
+  },
+
   data () {
     return {
       currentEmail: '',
