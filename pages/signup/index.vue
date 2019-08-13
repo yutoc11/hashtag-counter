@@ -1,11 +1,13 @@
 <template lang="pug">
   section.section
 
-    sns-connect(:login_or_signup="login_or_signup")
+    v-container
+      sns-connect(:login_or_signup="login_or_signup")
 
-    mail-password-form(
+      mail-password-form(
       :login_or_signup="login_or_signup"
       @emailpass-click-signup="emailSignup")
+
 </template>
 
 <script>
@@ -37,6 +39,7 @@ export default {
       user: [],
       email: '',
       password: '',
+      termConsent: '',
     }
   },
 

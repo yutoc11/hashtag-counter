@@ -4,18 +4,46 @@
       h2.headline.text-xs-center.font-weight-thin
         | SNSアカウントで{{ login_or_signup }}
 
-    v-container.my-0.py-2(text-xs-center fluid)
-      v-btn.mx-3.my-0.font-weight-bold(
-        outline
-        round
-        color="#dd4b39"
-        @click="googleLogin") Googleアカウントで{{ login_or_signup }}
-    v-container.my-0.py-2(text-xs-center fluid)
-      v-btn.mx-3.my-0.font-weight-bold(
-        outline
-        round
-        color="#55acee"
-        @click="twitterLogin") Twitterアカウントで{{ login_or_signup }}
+    v-container(v-if="this.$route.name == 'signup'")
+      v-layout(justify-center)
+        nuxt-link.body-2.texe-xs-center(to='../terms') 利用規約
+      v-layout(justify-center)
+        div
+          v-checkbox(
+            v-model="termConsentSNS"
+            label="上記の利用規約に同意する"
+            required)
+
+      v-container.my-0.py-2(text-xs-center fluid)
+        v-btn.mx-3.my-0.font-weight-bold(
+          :disabled="!termConsentSNS"
+          outline
+          round
+          color="#dd4b39"
+          @click="googleLogin") Googleアカウントで{{ login_or_signup }}
+      v-container.my-0.py-2(text-xs-center fluid)
+        v-btn.mx-3.my-0.font-weight-bold(
+          :disabled="!termConsentSNS"
+          outline
+          round
+          color="#55acee"
+          @click="twitterLogin") Twitterアカウントで{{ login_or_signup }}
+
+
+    v-container(v-else)
+
+      v-container.my-0.py-2(text-xs-center fluid)
+        v-btn.mx-3.my-0.font-weight-bold(
+          outline
+          round
+          color="#dd4b39"
+          @click="googleLogin") Googleアカウントで{{ login_or_signup }}
+      v-container.my-0.py-2(text-xs-center fluid)
+        v-btn.mx-3.my-0.font-weight-bold(
+          outline
+          round
+          color="#55acee"
+          @click="twitterLogin") Twitterアカウントで{{ login_or_signup }}
 </template>
 
 <script>
@@ -26,6 +54,12 @@ import { mapActions, mapState, mapGetters } from 'vuex'
 export default {
 
   props: ['login_or_signup'],
+
+  data(){
+    return{
+      termConsentSNS: false,
+    }
+  },
 
   asyncData () {
     return {
