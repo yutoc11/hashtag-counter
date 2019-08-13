@@ -6,7 +6,7 @@
 
     v-container(v-if="this.$route.name == 'signup'")
       v-layout(justify-center)
-        nuxt-link.body-2.texe-xs-center(to='../terms') 利用規約
+        a.body-2.texe-xs-center(href='../terms' target="_blank") 利用規約
       v-layout(justify-center)
         div
           v-checkbox(

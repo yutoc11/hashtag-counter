@@ -10,7 +10,7 @@
               v-text-field(prepend-icon="lock" name="password" label="パスワード" type="password" v-model="password")
               v-layout(justify-center)
                 div.pt-4
-                  nuxt-link.body-2(to='../terms') 利用規約
+                  a.body-2(href='../terms' target="_blank") 利用規約
                   v-checkbox(
                     v-model="termConsentMail"
                     label="上記の利用規約に同意する"
