@@ -40,6 +40,7 @@ export default {
       email: '',
       password: '',
       termConsent: '',
+      title:'新規登録'
     }
   },
 
@@ -68,6 +69,7 @@ export default {
         alert(error)
       });
     },
+
   }
 }
 </script>

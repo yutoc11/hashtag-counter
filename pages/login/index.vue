@@ -17,6 +17,7 @@ import MailPasswordForm from '~/components/MailPasswordForm'
 
 import firebase from '@/plugins/firebase'
 import store from '~/store/index.js'
+
 import { mapActions, mapState, mapGetters } from 'vuex'
 
 export default {
@@ -40,6 +41,7 @@ export default {
       email: '',
       password: '',
       login_data: [],
+      title: 'ログイン',
     }
   },
 
@@ -74,7 +76,7 @@ export default {
     logOut () {
       firebase.auth().signOut()
       this.$router.push("/")
-    }
+    },
   }
 }
 </script>
