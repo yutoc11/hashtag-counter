@@ -121,12 +121,10 @@ export default {
           cUser
             .updatePassword(this.newPassword)
             .then(() => {
-              console.log('パスワード変更成功！')
               alert('パスワードを再設定しました。再度ログインしてください。')
               this.logOut()
             })
             .catch(err => {
-                console.log('パスワード変更失敗・・・どうしたのかな？')
                 alert('パスワードは6文字以上入力してください。')
             })
         })
@@ -150,11 +148,9 @@ export default {
       cUser
       .updateEmail(this.newEmail).then(function() {
         // Update successful.
-        console.log('メールアドレス変更成功！')
         alert('メールアドレスが変更されました。')
       }).catch(function(error) {
         // An error happened.
-        console.log('メールアドレス変更に失敗・・・')
         alert('メールアドレスの変更に失敗しました。')
       })
         // 再認証に失敗したケース

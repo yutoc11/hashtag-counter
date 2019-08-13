@@ -85,7 +85,7 @@ export default {
   computed: {
 
     contentEdit(){
-      console.log('computedメッセージが変更されました')
+
     },
   },
 
@@ -105,30 +105,19 @@ export default {
 
     addHashtagEdit(contentEdit) {
 
-      console.log('#を追加したいボタンたっぷ')
 
       var text_val = this.contentEdit
-      console.log(text_val)
-
       var all_len = text_val.length
-      console.log(all_len)
-
       var select_len  = hashtag_edit.selectionStart
-      console.log(select_len)
-
       var first   = text_val.substr(0, select_len)
       var insert     = '#'
-      console.log(insert)
-
       var latter    = text_val.substr(select_len, all_len)
       text_val = first + insert + latter
-      console.log(text_val)
 
       this.contentEdit = text_val
 
       this.$nextTick(() =>
         this.$refs.r.focus(),
-        console.log('フォーカスなう'),
         // セレクションレンジが効かない
         // this.$refs.r.setSelectionRange(5, 10),
         // console.log('セレクションレンジ'),
@@ -138,30 +127,18 @@ export default {
 
     addSpaceEdit(contentEdit) {
 
-      console.log('#を追加したいボタンたっぷ')
-
       var text_val = this.contentEdit
-      console.log(text_val)
-
       var all_len = text_val.length
-      console.log(all_len)
-
       var select_len  = hashtag_edit.selectionStart
-      console.log(select_len)
-
       var first   = text_val.substr(0, select_len)
       var insert     = ' '
-      console.log(insert)
-
       var latter    = text_val.substr(select_len, all_len)
       text_val = first + insert + latter
-      console.log(text_val)
 
       this.contentEdit = text_val
 
       this.$nextTick(() =>
         this.$refs.r.focus(),
-        console.log('フォーカスなう'),
         // セレクションレンジが効かない
         // this.$refs.r.setSelectionRange(5, 10),
         // console.log('セレクションレンジ'),
@@ -174,7 +151,6 @@ export default {
     },
 
     clearHashtagEdit(contentEdit) {
-      console.log('コンポーネントのクリアをしようとしています'),
       this.contentEdit = ''
       this.$refs.r.focus()
       this.$parent.flash_message = "入力内容をクリアしました"
@@ -211,7 +187,6 @@ export default {
           .then(result => {
             if (result.val()) {
               this.$parent.hashtagsets = result.val();
-              console.log(this.$parent.hashtagsets)
             }
           })
           }else{
@@ -226,12 +201,10 @@ export default {
 
       },
 
-    //コピーなぜか効かないので一旦むし
+    //コピーなぜか効かないので一旦むし、編集機能自体保留
     copyHashtagEdit(contentEdit) {
       //this.$copyText(this.contentEdit)
       this.$copyText("Hello World")
-      console.log(this.contentEdit)
-      console.log('コピーしようとしています')
       this.$parent.flash_message = "コピーしました"
       setTimeout(this.clearMessage,3000)
     },
@@ -239,10 +212,6 @@ export default {
 }
 </script>
 <style>
-
-.add_hashtag{
-
-}
 
 .v-text-field.v-text-field--enclosed .v-text-field__details{
   margin-bottom:0;
