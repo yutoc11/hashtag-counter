@@ -16,6 +16,10 @@
       v-container
         nuxt/
 
+    v-footer.white--text(color="pink lighten-3")
+      v-layout(justify-center)
+        nuxt-link.caption.px-4.white--text.font-weight-bold(to="terms") 利用規約
+        nuxt-link.caption.px-4.white--text.font-weight-bold(to="privacy") プライバシーポリシー
     v-footer.white--text(color="pink darken-2")
       v-flex.font-weight-bold(
         color="pink darken-2"
