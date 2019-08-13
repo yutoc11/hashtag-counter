@@ -120,6 +120,7 @@ export default {
       contentEdit: '',
       isActive: false,
       editNow: 'none',
+      title: 'トップ'
     };
   },
 
@@ -177,24 +178,21 @@ export default {
 
       case 'login':
         this.flash_message = "ログインしました！"
+        this.gaPageView()
         setTimeout(this.clearMessage,3000),
         this.flash = false
         break;
 
       case 'signup':
         this.flash_message = "ご登録ありがとうございます！"
+        this.gaPageView()
         setTimeout(this.clearMessage,3000),
         this.flash = false
         break;
 
       case 'logout':
         this.flash_message = "ログアウトしました！"
-        setTimeout(this.clearMessage,3000),
-        this.flash = false
-        break;
-
-      case 'delete':
-        this.flash_message = "退会しました。またのご利用をお待ちしております。"
+        this.gaPageView()
         setTimeout(this.clearMessage,3000),
         this.flash = false
         break;
@@ -264,6 +262,22 @@ export default {
     invalidAccess(){
       this.flash_message = "ログインしてください"
       setTimeout(this.clearMessage,3000)
+    },
+
+    //jsで遷移してきた時のGA
+    gaPageView() {
+      const baseUrl = process.env.BASE_URL || 'http://localhost:3000'
+      const fullPath = baseUrl + this.$route.path
+      const title = this.title
+      console.log('gaPageViewが呼ばれたよ！')
+      console.log(title)
+      console.log(fullPath)
+      this.$gtm.pushEvent({
+      event: 'nuxtRoute',
+      pageType: 'PageView',
+      pageUrl: fullPath,
+      routeName: title
+      });
     }
   }
 }

@@ -74,6 +74,7 @@ export default {
       currentPasswordforEmail: '',
       newPassword: '',
       newPasswordConfirm: '',
+      title: 'マイページ'
     };
   },
 
@@ -166,11 +167,6 @@ export default {
       firebase.auth().signOut()
       this.setUser(null)
       this.$router.push('/?flash=logout')
-    },
-
-    //ユーザーデータの更新
-    changeProfile(){
-
     },
   },
 }
