@@ -7,7 +7,10 @@
             h4 退会はこちら
           v-form(v-if="cUser")
             v-btn.my-3.white--text.font-weight-bold(outline color='grey' round @click="deleteUser") 本当に退会する
-          v-card-text(v-else) 退会完了しました。今までご利用ありがとうございます。
+          v-card-text(v-else)
+            | 退会完了しました。
+            br
+            | 今までご利用いただきまして、誠にありがとうございます。
 </template>
 
 <script>
