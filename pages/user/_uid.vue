@@ -34,7 +34,7 @@
     v-layout.mb-5.text-xs-center(justify-end)
       v-btn.my-3.white--text.font-weight-bold(outline color='red' primary round @click="logOut")  ログアウト
     v-layout.mt-5.text-xs-center(justify-stard)
-      v-btn.my-3.white--text.font-weight-bold(outline color='grey' round @click="deleteUser")  退会する
+      v-btn.my-3.white--text.font-weight-bold(outline color='grey' round to="../unsubscribe" nuxt)  退会はこちら
 
     p(v-if="isAuthenticated")
      | $store.state.user.uid： {{ $store.state.user.uid }}
@@ -171,21 +171,6 @@ export default {
     changeProfile(){
 
     },
-
-    //退会（ユーザーデータの削除）
-    deleteUser(){
-      var user = firebase.auth().currentUser;
-      user.delete().then(
-        function() {
-        // User deleted.
-        }
-      ).catch(
-        function(error) {
-        // An error happened.
-        }
-      );
-      this.$router.push('/?flash=delete')
-      },
   },
 }
 </script>
