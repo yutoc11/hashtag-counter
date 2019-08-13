@@ -151,8 +151,22 @@ export default {
       if (user) {
         this.setUser(user)
         this.$router.push("/")
+
+        //保存されているハッシュタグセットを読み込む
+        firebase
+        .database()
+        .ref('hashtagsets/' + this.user.uid)
+        .once('value')
+        .then(result => {
+          if (result.val()) {
+
+            this.hashtagsets = result.val();
+
+          }
+        })
       }
     })
+
   },
 
   mounted: function () {
