@@ -103,7 +103,7 @@ export default {
   },
 
   workbox: {
-    dev: true, //開発環境でもPWA
+    //dev: true, //開発環境でもPWA
   },
 
   /*
