@@ -22,6 +22,12 @@ import { mapActions, mapState, mapGetters } from 'vuex'
 
 export default {
 
+  head() {
+    return {
+      title:'ログイン'
+    }
+  },
+
   components: {
     MailPasswordForm,
     SnsConnect

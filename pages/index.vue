@@ -95,6 +95,13 @@ import { mapActions, mapState, mapGetters } from 'vuex'
 
 export default {
 
+  head() {
+    return {
+      title:'#ハッシュタグカウンター',
+      titleTemplate: ''
+    }
+  },
+
   data () {
     return {
       now_hashtag_count:'',
