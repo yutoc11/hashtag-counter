@@ -135,6 +135,10 @@ export default {
     'nuxt-clipboard2',
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
+    '@nuxtjs/google-tag-manager', {
+      id: 'GTM-PL679P7',
+      pageTracking: true,
+    }
   ],
 
   fontawesome: {
