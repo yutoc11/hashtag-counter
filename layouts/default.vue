@@ -7,13 +7,10 @@
         nuxt-link.white--text.font-weight-bold(to="/") #カウンター
       v-spacer
       v-toolbar-items(v-if="isAuthenticated")
-        v-btn(flat)
-          nuxt-link.white--text.font-weight-bold(:to="mypageUrl") マイページ
+        v-btn.white--text.font-weight-bold(flat :to="mypageUrl" nuxt) マイページ
       v-toolbar-items(v-else)
-        v-btn(flat)
-          nuxt-link.white--text.font-weight-bold(to="/login") ログイン
-        v-btn
-          nuxt-link.black--text.font-weight-bold(to="/signup") 新規登録
+        v-btn.white--text.font-weight-bold(flat to="/login" nuxt) ログイン
+        v-btn.black--text.font-weight-bold(to="/signup" nuxt) 新規登録
 
     v-content
       v-container

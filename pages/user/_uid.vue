@@ -29,8 +29,7 @@
                 v-text-field(prepend-icon="lock" name="new_password" label="新しいパスワード" type="password" v-model="newPassword")
                 v-text-field(prepend-icon="lock" name="new_password_confirm" label="新しいパスワード(確認用)" type="password" v-model="newPasswordConfirm")
                 v-btn.my-3.white--text.font-weight-bold(outline color='grey' round @click="updatePassword(currentPassword,newPassword)") パスワードを変更する
-              v-btn(small outline color='grey lighten-1' round)
-                nuxt-link.grey--text(to="../reset") パスワードを忘れた方はこちら
+              v-btn.grey--text(small outline color='grey lighten-1' round to="../reset" nuxt) パスワードを忘れた方はこちら
 
     v-layout.mb-5.text-xs-center(justify-end)
       v-btn.my-3.white--text.font-weight-bold(outline color='red' primary round @click="logOut")  ログアウト

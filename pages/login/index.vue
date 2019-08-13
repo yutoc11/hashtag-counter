@@ -8,8 +8,7 @@
       @emailpass-click-login="emailLogin")
 
     v-layout.text-xs-center(justify-center)
-      v-btn(small outline color='grey lighten-1' round)
-        nuxt-link.grey--text(to="reset") パスワードを忘れた方はこちら
+      v-btn.grey--text(small outline color='grey lighten-1' round to="reset" nuxt) パスワードを忘れた方はこちら
 </template>
 
 <script>
