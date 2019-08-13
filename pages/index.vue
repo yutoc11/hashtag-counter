@@ -20,7 +20,7 @@
 
             v-divider
 
-    //フラッシュメッセージ
+    //-フラッシュメッセージ
     v-layout(justify-center v-if="flash_message" )
       .flash_message_area(v-bind:style="styleObject")
         v-alert.caption.px-3.py-2.mt-2(
@@ -39,7 +39,7 @@
       h2.headline.text-xs-center.font-weight-thin
         | My hashtag set
 
-    //保存されたハッシュタグセットもゆくゆくはコンポーネント化
+    //-保存されたハッシュタグセットもゆくゆくはコンポーネント化
     v-layout(justify-center v-if="isAuthenticated")
       v-container.text-xs-center(justify-center v-if='hashtagsets == ""')
         h3.head ハッシュタグを保存すると、コピーや編集ができるようになります。
@@ -71,16 +71,16 @@
           color="pink darken-2"
           )  登録して保存してみる
 
-    //デバッグ用
-    p(v-if="isAuthenticated")
-     | $store.state.user.uid： {{ $store.state.user.uid }}
-     br
-     | $store.state.user.displayName： {{ $store.state.user.displayName }}
-     br
-     | $store.state.user.email： {{ $store.state.user.email }}
-     br
-     | isAuthenticated： {{ isAuthenticated }}
-    p(v-else) ユーザーデータなし
+    //-デバッグ用
+      p(v-if="isAuthenticated")
+       | $store.state.user.uid： {{ $store.state.user.uid }}
+       br
+       | $store.state.user.displayName： {{ $store.state.user.displayName }}
+       br
+       | $store.state.user.email： {{ $store.state.user.email }}
+       br
+       | isAuthenticated： {{ isAuthenticated }}
+      p(v-else) ユーザーデータなし
 
 </template>
 

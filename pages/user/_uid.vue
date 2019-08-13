@@ -36,17 +36,18 @@
     v-layout.mt-5.text-xs-center(justify-stard)
       v-btn.my-3.white--text.font-weight-bold(outline color='grey' round to="../unsubscribe" nuxt)  退会はこちら
 
-    p(v-if="isAuthenticated")
-     | $store.state.user.uid： {{ $store.state.user.uid }}
-     br
-     | $store.state.user.displayName： {{ $store.state.user.displayName }}
-     br
-     | $store.state.user.email： {{ $store.state.user.email }}
-     br
-     | $store.state.user.password： {{ $store.state.user.password }}
-     br
-     | isAuthenticated： {{ isAuthenticated }}
-    p(v-else) ユーザーデータなし
+    //-デバッグ用
+      p(v-if="isAuthenticated")
+       | $store.state.user.uid： {{ $store.state.user.uid }}
+       br
+       | $store.state.user.displayName： {{ $store.state.user.displayName }}
+       br
+       | $store.state.user.email： {{ $store.state.user.email }}
+       br
+       | $store.state.user.password： {{ $store.state.user.password }}
+       br
+       | isAuthenticated： {{ isAuthenticated }}
+      p(v-else) ユーザーデータなし
 
 </template>
 
