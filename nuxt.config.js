@@ -153,7 +153,7 @@ export default {
 
  sitemap: {
    path: '/sitemap.xml',
-   hostname: '#ハッシュタグカウンター',
+   hostname: 'https://hashtag-counter.net',
    // generate: true,
  },
 
