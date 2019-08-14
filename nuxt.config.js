@@ -138,7 +138,8 @@ export default {
     ['@nuxtjs/google-tag-manager', {
       id: 'GTM-PL679P7',
       pageTracking: true,
-    }]
+    }],
+    '@nuxtjs/sitemap',
   ],
 
   fontawesome: {
@@ -149,6 +150,12 @@ export default {
       },
      ]
    },
+
+ sitemap: {
+   path: '/sitemap.xml',
+   hostname: '#ハッシュタグカウンター',
+   // generate: true,
+ },
 
   /*
   ** Build configuration
