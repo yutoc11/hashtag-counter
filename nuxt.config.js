@@ -32,7 +32,11 @@ export default {
   */
 
   router: {
-    base: baseDir,　// ←これも忘れずに入れる！
+    base: baseDir,// ←これも忘れずに入れる！
+  },
+
+  icon: {
+  iconFileName: manifestIcon
   },
 
   head: {
@@ -67,6 +71,10 @@ export default {
       // { property: 'article:publisher', content: 'FacebookURL' },
       // { property: 'fb:app_id', content: 'FacebookAppID' },
 
+      // pwa iOS
+      { name: 'apple-mobile-web-app-capable', content: 'yes' },
+      { name: 'apple-mobile-web-app-status-bar-style', content: 'black-translucent' },
+
     ],
 
     script: [
@@ -76,19 +84,18 @@ export default {
     ],
 
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       // fonts
       { rel: 'stylesheet', href: 'https://cdn.jsdelivr.net/npm/yakuhanjp@3.0.0/dist/css/yakuhanmp.min.css' },
       { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Noto+Serif+JP:400,700&amp;subset=japanese' },
 
       // icons
-      // { rel: 'icon', sizes: '16x16', type: 'image/png', href: iconImages + 'favicon-16.png' },
-      // { rel: 'icon', sizes: '32x32', type: 'image/png', href: iconImages + 'favicon-32.png' },
-      // { rel: 'icon', sizes: '48x48', type: 'image/png', href: iconImages + 'favicon-48.png' },
-      // { rel: 'icon', sizes: '62x62', type: 'image/png', href: iconImages + 'favicon-62.png' },
+      { rel: 'icon', sizes: '16x16', type: 'image/png', href: iconImages + 'favicon-16.png' },
+      { rel: 'icon', sizes: '32x32', type: 'image/png', href: iconImages + 'favicon-32.png' },
+      { rel: 'icon', sizes: '48x48', type: 'image/png', href: iconImages + 'favicon-48.png' },
+      { rel: 'icon', sizes: '62x62', type: 'image/png', href: iconImages + 'favicon-62.png' },
       // apple touch icon
-      //{ rel: 'apple-touch-icon', sizes: '180x180', href: iconImages + 'apple-touch-icon.png' },
-    ]
+      { rel: 'apple-touch-icon', sizes: '180x180', href: iconImages + 'apple-touch-icon.png' },
+    ],
   },
 
   manifest: {
