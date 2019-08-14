@@ -194,6 +194,10 @@ export default {
               }
             )
 
+          //保存のイベント
+          this.$gtm.pushEvent({
+          event: 'saveHashtag',
+          });
           this.$parent.flash_message = "保存しました。"
 
           // 保存したタイミングで入力内容をクリア
