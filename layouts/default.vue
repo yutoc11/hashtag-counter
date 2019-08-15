@@ -1,7 +1,7 @@
 <template lang="pug">
   v-app
 
-    v-toolbar.white--text(color="pink darken-2")
+    v-toolbar.white--text(color="pink darken-2" dense)
       //v-toolbar-side-icon.white--text
       v-toolbar-title.pt-1.px-0
         nuxt-link.white--text.font-weight-bold(to="/") #カウンター
@@ -69,5 +69,8 @@ export default {
 <style lang="scss">
 .section{
   margin: 0 auto;
+}
+.v-toolbar__content{
+  height: 40px;
 }
 </style>
