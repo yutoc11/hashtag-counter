@@ -114,7 +114,7 @@ export default {
 
       var text_val = this.content
       var all_len = text_val.length
-      var select_len = hashtag_input.selectionStart
+      var select_len = this.$refs.r.$el.querySelector('textarea').selectionStart
       var first = text_val.substr(0, select_len)
       var insert = '#'
       var latter = text_val.substr(select_len, all_len)
@@ -122,12 +122,10 @@ export default {
 
       this.content = text_val
 
-      this.$nextTick(() =>
-        this.$refs.r.focus(),
-        // セレクションレンジが効かない
-        // this.$refs.r.setSelectionRange(5, 10),
-        // console.log('セレクションレンジ'),
-      )
+      this.$nextTick(() => {
+        this.$refs.r.focus();
+        this.$refs.r.$el.querySelector('textarea').setSelectionRange(select_len + 1, select_len + 1)
+      });
     },
 
     // 半角スペースをワンタップで追加する
@@ -135,7 +133,7 @@ export default {
 
       var text_val = this.content
       var all_len = text_val.length
-      var select_len  = hashtag_input.selectionStart
+      var select_len = this.$refs.r.$el.querySelector('textarea').selectionStart
       var first   = text_val.substr(0, select_len)
       var insert     = ' '
       var latter    = text_val.substr(select_len, all_len)
@@ -143,12 +141,10 @@ export default {
 
       this.content = text_val
 
-      this.$nextTick(() =>
-        this.$refs.r.focus(),
-        // セレクションレンジが効かない
-        // this.$refs.r.setSelectionRange(5, 10),
-        // console.log('セレクションレンジ'),
-      )
+      this.$nextTick(() => {
+        this.$refs.r.focus();
+        this.$refs.r.$el.querySelector('textarea').setSelectionRange(select_len + 1, select_len + 1)
+      });
     },
 
     // ふらっッシュメッセージの内容をクリアする
