@@ -8,19 +8,17 @@
           solo
           )
 
-        v-layout(align-center justify-end row)
-          v-btn.add_hashtag.mb-2.mr-1.caption.grey--text(
-            text
+        v-layout.input-tool(align-center justify-end row)
+          v-btn.add_hashtag.mb-2.mr-1.caption.white--text(
             fab
-            depressed
             small
+            color="#C33C5B"
             @click="addHashtag(content)"
             )  #
-          v-btn.add_hashtag.mb-2.mr-1.caption.grey--text(
-            text
+          v-btn.add_hashtag.mb-2.mr-1.caption.white--text(
             fab
-            depressed
             small
+            color="#C33C5B"
             @click="addSpace(content)"
             )  ␣
 
@@ -30,6 +28,8 @@
           placeholder="Instagramに載せたいハッシュタグまとめをご入力ください。"
           v-model="content"
           @input="updateValue"
+          @focus="focus"
+          @keyup.esc="focusOut"
           maxlength="500"
           auto-grow
           solo
@@ -81,6 +81,7 @@ export default {
       title:'',
       content:'',
       input_text:'',
+      onFocus: false,
     };
   },
 
@@ -94,6 +95,15 @@ export default {
   methods: {
 
     ...mapActions(['setUser']),
+
+    // //これはうまくいっていない
+    // focus() {
+    //   this.onFocus = true
+    // },
+    //
+    // focusOut() {
+    //   this.onFocus = false
+    // },
 
     // 入力内容が1文字変わる度に、ハッシュタグの数を数える
     updateValue(){
@@ -251,6 +261,28 @@ export default {
 
 .v-text-field__details{
   display: none;
+}
+
+.add_hashtag{
+  font-weight: bold;
+  opacity: 0.4;
+}
+
+@media screen and (max-width: 480px) {
+  .input-tool{
+    position: fixed;
+    top: 235px;
+    right: 25px;
+    z-index: 1000;
+  }
+
+  .section{
+    padding: 36px 0px;
+  }
+
+  .container{
+    padding: 10px 0;
+  }
 }
 
 </style>
