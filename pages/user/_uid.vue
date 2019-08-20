@@ -3,6 +3,7 @@
     v-tabs(
       background-color="transparent"
       centered
+      v-if="loginType=='email'"
       )
       v-tab メールアドレス
       v-tab パスワード
@@ -30,6 +31,15 @@
                 v-text-field(prepend-icon="lock" name="new_password_confirm" label="新しいパスワード(確認用)" type="password" v-model="newPasswordConfirm")
                 v-btn.my-3.white--text.font-weight-bold(outline color='grey' round @click="updatePassword(currentPassword,newPassword)") パスワードを変更する
               v-btn.grey--text(small outline color='grey lighten-1' round to="../reset" nuxt) パスワードを忘れた方はこちら
+
+    v-layout.text-xs-center(justify-center row v-else)
+      v-container.text-xs-center.white
+        v-card(flat)
+          v-card-title.font-weight-bold(primary-title) ログイン方法
+          v-card-text {{loginType}}
+        v-card(flat v-if="user.email != null")
+          v-card-title.font-weight-bold(primary-title) 登録メールアドレス
+          v-card-text {{user.email}}
 
     v-layout.mb-5.text-xs-center(justify-end)
       v-btn.my-3.white--text.font-weight-bold(outline color='red' primary round @click="logOut")  ログアウト
@@ -88,6 +98,7 @@ export default {
 
   computed: {
     ...mapState(['user']),
+    ...mapState(['loginType']),
     ...mapGetters(['isAuthenticated']),
   },
 
@@ -104,6 +115,7 @@ export default {
 
   methods: {
     ...mapActions(['setUser']),
+    ...mapActions(['setLoginType']),
 
 
     //パスワード変更
@@ -164,6 +176,7 @@ export default {
 
     //ログアウト
     logOut(){
+      this.setLoginType(null)
       firebase.auth().signOut()
       this.setUser(null)
       this.$router.push('/?flash=logout')

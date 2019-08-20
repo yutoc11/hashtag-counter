@@ -70,11 +70,16 @@ export default {
   },
 
   computed: {
+    ...mapState(['loginType']),
   },
 
   methods: {
 
+    ...mapActions(['setLoginType']),
+
     googleLogin () {
+      var loginType='google';
+      this.setLoginType(loginType)
       const provider = new firebase.auth.GoogleAuthProvider()
       firebase.auth().signInWithRedirect(provider)
       .then(user => {
@@ -86,6 +91,8 @@ export default {
     },
 
     twitterLogin () {
+      var loginType='twitter';
+      this.setLoginType(loginType)
       const provider = new firebase.auth.TwitterAuthProvider()
       firebase.auth().signInWithRedirect(provider)
       .then(user => {
