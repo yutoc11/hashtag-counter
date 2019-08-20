@@ -15,7 +15,6 @@
             v-model="content"
             @input="updateValue"
             @focus="focus"
-            @keyup.esc="focusOut"
             maxlength="500"
             auto-grow
             solo
@@ -82,7 +81,6 @@ export default {
       title:'',
       content:'',
       input_text:'',
-      onFocus: false,
     };
   },
 
@@ -97,14 +95,9 @@ export default {
 
     ...mapActions(['setUser']),
 
-    // //これはうまくいっていない
-    // focus() {
-    //   this.onFocus = true
-    // },
-    //
-    // focusOut() {
-    //   this.onFocus = false
-    // },
+    focus(){
+      //これないとエラーになる
+    },
 
     // 入力内容が1文字変わる度に、ハッシュタグの数を数える
     updateValue(){
