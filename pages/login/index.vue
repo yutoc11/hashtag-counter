@@ -47,6 +47,7 @@ export default {
 
   computed: {
     ...mapState(['user']),
+    ...mapState(['loginType']),
     ...mapGetters(['isAuthenticated'])
   },
 
@@ -62,8 +63,11 @@ export default {
   methods: {
 
     ...mapActions(['setUser']),
+    ...mapActions(['setLoginType']),
 
     emailLogin() {
+      var loginType='email';
+      this.setLoginType(loginType)
       firebase.auth().signInWithEmailAndPassword(this.email, this.password)
       .then(user => {
         // ログインしたら飛ぶページを指定

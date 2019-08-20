@@ -139,6 +139,7 @@ export default {
   computed: {
 
     ...mapState(['user']),
+    ...mapState(['loginType']),
     ...mapGetters(['isAuthenticated']),
 
     ...mapState({
@@ -202,6 +203,7 @@ export default {
 
   methods: {
     ...mapActions(['setUser']),
+    ...mapActions(['setloginType']),
 
     //フラッシュメッセージを消す
     clearMessage(){
