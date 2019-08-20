@@ -20,8 +20,16 @@
             solo
             )
 
-          div.input-tool_wrapper
-            v-layout.input-tool(justify-end)
+          v-layout(align-center justify-space-between row fill-height)
+            v-btn.caption(
+              small
+              outline
+              round
+              color="grey lighten-1"
+              @click="clearHashtag(content)"
+              ) すべてクリア
+              v-icon.pl-1 clear
+            v-layout(justify-end)
               v-btn.add_hashtag.mb-2.mr-1.caption.white--text(
                 fab
                 small
@@ -34,25 +42,15 @@
                 color="#C33C5B"
                 @click="addSpace(content)"
                 )  ␣
-
-          v-layout(align-center justify-space-between row fill-height)
-            v-btn.caption(
-              small
-              outline
-              round
-              color="grey lighten-1"
-              @click="clearHashtag(content)"
-              ) すべてクリア
-              v-icon.pl-1 clear
-            v-btn.caption.copy-button(
-              small
-              fab
-              outline
-              round
-              color="grey darken-1"
-              @click="copyHashtag(content)"
-              )
-              v-icon file_copy
+              v-btn.caption.copy-button(
+                small
+                fab
+                outline
+                round
+                color="grey darken-1"
+                @click="copyHashtag(content)"
+                )
+                v-icon file_copy
 
           v-layout.my-2(justify-center)
             .circle #

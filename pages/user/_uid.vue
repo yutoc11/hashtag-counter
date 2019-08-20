@@ -37,7 +37,7 @@
         v-card(flat)
           v-card-title.font-weight-bold(primary-title) ログイン方法
           v-card-text {{loginType}}
-        v-card(flat v-if="user.email != null")
+        v-card(flat v-if="this.user.email != null")
           v-card-title.font-weight-bold(primary-title) 登録メールアドレス
           v-card-text {{user.email}}
 
