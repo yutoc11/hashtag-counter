@@ -325,7 +325,7 @@ export default {
   background-color: #C33C5B;
   color: #fff;
   font-weight: bold;
-  opacity: 0.5;
+  opacity: 0.3;
 }
 
 .hashtag_count{

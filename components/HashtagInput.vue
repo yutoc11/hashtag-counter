@@ -72,7 +72,7 @@
               @click="saveHashtag(title,content)"
               )  保存
               v-icon.pl-2 add_circle_outline
-              
+
 </template>
 
 <script>
@@ -286,15 +286,15 @@ export default {
 
 .input-tool{
   position: relative;
-  width:75px;
+  width:80px;
   bottom: 230px;
   left:210px;
-  padding-left:10px;
+  padding-left:25px;
 }
 
 .input-tool.hatshtag-count-wrapper{
   display: flex;
-  width:75px;
+  width:80px;
   margin-top:30px;
   margin-left:0;
   padding-left:0;
@@ -309,7 +309,7 @@ export default {
 @media screen and (max-width: 480px) {
 
   .input-tool{
-    left:27vw;
+    left:22vw;
   }
 
   .section{
