@@ -1,69 +1,78 @@
 <template lang="pug">
   v-layout(justify-center)
-    v-flex(xs12 md8)
+    v-flex(xs12 md12)
       v-form
-          v-text-field.mb-0(
-            label="タイトル"
-            v-model="title"
-            solo
-            )
-
-          v-textarea(
-            id="hashtag_input"
-            ref="r"
-            placeholder="Instagramに載せたいハッシュタグまとめをご入力ください。"
-            v-model="content"
-            @input="updateValue"
-            @focus="focus"
-            maxlength="500"
-            auto-grow
-            solo
-            )
-
-          v-layout(align-center justify-space-between row fill-height)
-            v-btn.caption(
-              small
-              outline
-              round
-              color="grey lighten-1"
-              @click="clearHashtag(content)"
-              ) すべてクリア
-              v-icon.pl-1 clear
-            v-layout(justify-end)
-              v-btn.add_hashtag.mb-2.mr-1.caption.white--text(
-                fab
-                small
-                color="#C33C5B"
-                @click="addHashtag(content)"
-                )  #
-              v-btn.add_hashtag.mb-2.mr-1.caption.white--text(
-                fab
-                small
-                color="#C33C5B"
-                @click="addSpace(content)"
-                )  ␣
-              v-btn.caption.copy-button(
-                small
-                fab
-                outline
-                round
-                color="grey darken-1"
-                @click="copyHashtag(content)"
+          v-layout
+            v-flex(xs10 md10)
+              v-text-field.mb-0(
+                label="タイトル"
+                v-model="title"
+                solo
                 )
-                v-icon file_copy
 
-          v-layout.my-2(justify-center)
-            .circle #
-            p.hashtag_count.text-xs-center.font-weight-bold.ml-2 {{ now_hashtag_count }}
+              v-layout(justify-start)
+                v-btn(
+                  small
+                  outline
+                  round
+                  color="grey lighten-1"
+                  @click="clearHashtag(content)"
+                  ) すべてクリア
+                  v-icon.pl-1 clear
 
-          v-layout(align-center justify-center row fill-height)
-            v-btn.my-3.white--text.font-weight-bold(
+              v-textarea(
+                id="hashtag_input"
+                ref="r"
+                placeholder="Instagramに載せたいハッシュタグまとめをご入力ください。"
+                v-model="content"
+                @input="updateValue"
+                @focus="focus"
+                maxlength="500"
+                auto-grow
+                solo
+                )
+
+            v-flex(xs1 md1)
+              div
+
+          div.input_tool_start
+            div.input-tool_wrapper
+              div.input-tool
+                v-btn.add_hashtag.mb-2.mr-1.caption.white--text(
+                  small
+                  fab
+                  color="grey"
+                  @click="addHashtag(content)"
+                  )  #
+              div.input-tool
+                v-btn.add_hashtag.mb-2.mr-1.caption.white--text(
+                  small
+                  fab
+                  color="grey"
+                  @click="addSpace(content)"
+                  )  ␣
+              div.input-tool
+                v-btn.add_hashtag.caption.copy-button.white--text(
+                  small
+                  fab
+                  color="grey"
+                  @click="copyHashtag(content)"
+                  )
+                  v-icon file_copy
+              div.input-tool.hatshtag-count-wrapper
+                .circle #
+                p.hashtag_count.text-xs-center.font-weight-bold.ml-1 {{ now_hashtag_count }}
+
+          v-layout(justify-center)
+            v-btn.px-4.white--text.font-weight-bold(
+              smmall
               outline
               round
               color="pink darken-2"
               @click="saveHashtag(title,content)"
               )  保存
               v-icon.pl-2 add_circle_outline
+              
 </template>
 
 <script>
@@ -257,22 +266,50 @@ export default {
 
 .add_hashtag{
   font-weight: bold;
-  opacity: 0.4;
+}
+
+.input_tool_start{
+  height:0;
+  width:0;
+  margin: 0 auto;
+}
+
+.input-tool_wrapper{
+  postion: -webkit-sticky;
+  position: sticky;
+  top: 0px;
+  right:0px;
+  width:0px;
+  margin: 0 auto;
+  z-index: 1000;
+}
+
+.input-tool{
+  position: relative;
+  width:75px;
+  bottom: 230px;
+  left:210px;
+  padding-left:10px;
+}
+
+.input-tool.hatshtag-count-wrapper{
+  display: flex;
+  width:75px;
+  margin-top:30px;
+  margin-left:0;
+  padding-left:0;
+}
+
+@media screen and (max-width: 700px) {
+  .input-tool{
+    left:30vw;
+  }
 }
 
 @media screen and (max-width: 480px) {
 
-  .input-tool_wrapper{
-    position:absolute;
-    width:85%;
-    margin: 0 auto;
-  }
-
   .input-tool{
-    position: relative;
-    bottom: 60px;
-    right: 0;
-    z-index: 1000;
+    left:27vw;
   }
 
   .section{

@@ -67,6 +67,11 @@ export default {
 </script>
 
 <style lang="scss">
+
+body{
+  max-width: 700px;
+  margin: 0 auto;
+}
 .section{
   margin: 0 auto;
 }
